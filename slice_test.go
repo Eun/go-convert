@@ -1,6 +1,8 @@
 package convert
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestConvertToSlice(t *testing.T) {
 	tests := []testCase{
@@ -13,6 +15,7 @@ func TestConvertToSlice(t *testing.T) {
 		// Slice to Slice
 		{[]int{1, 2, 3}, []uint{}, []uint{1, 2, 3}, "", nil},
 		{[]int{1, 2, 3}, []string{}, []string{"1", "2", "3"}, "", nil},
+		{[]int{1, 2, 3}, []interface{}{"", 0.0, 0}, []interface{}{"1", 2.0, 3}, "", nil},
 	}
 
 	for i, test := range tests {
