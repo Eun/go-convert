@@ -40,6 +40,7 @@ func TestConvertToMap(t *testing.T) {
 		// respect nested types
 		{map[string]string{"Foo": "3", "Bar": "4", "Beef": "5"}, map[string]interface{}{"Foo": 3, "Bar": 4.0}, map[string]interface{}{"Foo": 3, "Bar": 4.0, "Beef": "5"}, "", nil},
 		{map[string]string{"Foo": "3"}, map[string]interface{}{"Foo": ptrInt(3)}, map[string]interface{}{"Foo": ptrInt(3)}, "", nil},
+		{map[string]string{"1": "3"}, map[int]interface{}{1: 0}, map[int]interface{}{1: 3}, "", nil},
 
 		// struct
 		{User{"Joe"}, map[string]string{}, map[string]string{"Name": "Joe"}, "", nil},
