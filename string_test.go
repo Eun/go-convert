@@ -4,6 +4,8 @@ import "testing"
 
 func TestConvertToString(t *testing.T) {
 	tests := []testCase{
+		// nil
+		{nil, "", nil, `unable to convert nil to string: source cannot be nil`, nil},
 		// string
 		{"Hello World", "", "Hello World", "", nil},
 		// bool

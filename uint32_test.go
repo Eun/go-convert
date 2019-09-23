@@ -4,6 +4,8 @@ import "testing"
 
 func TestConvertToUint32(t *testing.T) {
 	tests := []testCase{
+		// nil
+		{nil, uint32(0), nil, `unable to convert nil to uint32: source cannot be nil`, nil},
 		// string
 		{"6", uint32(0), uint32(6), "", nil},
 		{"Hello World", uint32(0), nil, `unable to convert string to uint32: strconv.ParseUint: parsing "Hello World": invalid syntax`, nil},

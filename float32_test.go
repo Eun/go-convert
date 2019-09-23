@@ -4,6 +4,8 @@ import "testing"
 
 func TestConvertToFloat32(t *testing.T) {
 	tests := []testCase{
+		// nil
+		{nil, float32(0), nil, `unable to convert nil to float32: source cannot be nil`, nil},
 		// string
 		{"3.2", float32(0), float32(3.2), "", nil},
 		{"Hello World", float32(0), nil, `unable to convert string to float32: strconv.ParseFloat: parsing "Hello World": invalid syntax`, nil},

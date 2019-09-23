@@ -30,6 +30,8 @@ func TestConvertToMap(t *testing.T) {
 	}
 
 	tests := []testCase{
+		// nil
+		{nil, map[string]interface{}{}, map[string]interface{}{}, "", nil},
 		// string
 		{"Hello World", map[string]interface{}{}, nil, "unable to convert string to map[string]interface{}", nil},
 
@@ -68,6 +70,9 @@ func TestConvertToMap(t *testing.T) {
 		{map[string]string{"1": "3"}, map[int]interface{}{1: 0}, map[int]interface{}{1: 3}, "", nil},
 
 		{map[string]string{"1": "3"}, map[interface{}]interface{}{1: 0}, map[interface{}]interface{}{"1": "3"}, "", nil},
+
+		// null interface
+		{map[string]interface{}{"Foo": nil}, map[string][]string{}, map[string][]string{"Foo": []string{}}, "", nil},
 
 		// struct
 		{User{"Joe"}, map[string]string{}, map[string]string{"Name": "Joe"}, "", nil},

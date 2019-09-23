@@ -52,6 +52,9 @@ func TestConvertToStruct(t *testing.T) {
 	}
 
 	tests := []testCase{
+		// nil
+		{nil, struct{}{}, nil, `unable to convert nil to struct{}: source cannot be nil`, nil},
+
 		// string
 		{"Hello World", struct{}{}, nil, "unable to convert string to struct{}", nil},
 

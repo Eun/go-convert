@@ -4,6 +4,8 @@ import "testing"
 
 func TestConvertToBool(t *testing.T) {
 	tests := []testCase{
+		// nil
+		{nil, false, nil, `unable to convert nil to bool: source cannot be nil`, nil},
 		// string
 		{"true", false, true, "", nil},
 		{"Hello World", false, nil, `unable to convert string to bool: strconv.ParseBool: parsing "Hello World": invalid syntax`, nil},

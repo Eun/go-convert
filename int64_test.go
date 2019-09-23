@@ -4,6 +4,8 @@ import "testing"
 
 func TestConvertToInt64(t *testing.T) {
 	tests := []testCase{
+		// nil
+		{nil, int64(0), nil, `unable to convert nil to int64: source cannot be nil`, nil},
 		// string
 		{"6", int64(0), int64(6), "", nil},
 		{"Hello World", int64(0), nil, `unable to convert string to int64: strconv.ParseInt: parsing "Hello World": invalid syntax`, nil},

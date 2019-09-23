@@ -4,6 +4,8 @@ import "testing"
 
 func TestConvertToFloat64(t *testing.T) {
 	tests := []testCase{
+		// nil
+		{nil, float64(0), nil, `unable to convert nil to float64: source cannot be nil`, nil},
 		// string
 		{"3.2", float64(0), float64(3.2), "", nil},
 		{"Hello World", float64(0), nil, `unable to convert string to float64: strconv.ParseFloat: parsing "Hello World": invalid syntax`, nil},
