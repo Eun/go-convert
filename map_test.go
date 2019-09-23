@@ -38,9 +38,36 @@ func TestConvertToMap(t *testing.T) {
 		{map[string]string{"Foo": "Bar"}, map[string]interface{}{}, map[string]interface{}{"Foo": "Bar"}, "", nil},
 
 		// respect nested types
-		{map[string]string{"Foo": "3", "Bar": "4", "Beef": "5"}, map[string]interface{}{"Foo": 3, "Bar": 4.0}, map[string]interface{}{"Foo": 3, "Bar": 4.0, "Beef": "5"}, "", nil},
-		{map[string]string{"Foo": "3"}, map[string]interface{}{"Foo": ptrInt(3)}, map[string]interface{}{"Foo": ptrInt(3)}, "", nil},
+		{
+			map[string]interface{}{"Int": "3", "Float": "4", "String": "5", "PtrInt": "6", "Slice": []interface{}{"1", "2", "3"}},
+			map[string]interface{}{"Int": 0, "Float": 0.0, "PtrInt": ptrInt(0), "Slice": []interface{}{"0", 0, 0.0}},
+			map[string]interface{}{"Int": 3, "Float": 4.0, "String": "5", "PtrInt": ptrInt(6), "Slice": []interface{}{"1", 2, 3.0}},
+			"",
+			nil,
+		},
+
+		// respect different key type
+		{
+			map[int]interface{}{1: 123},
+			map[string]interface{}{"1": "String"},
+			map[string]interface{}{"1": "123"},
+			"",
+			nil,
+		},
+
+		// respect nested slice
+		{
+			map[string][]interface{}{"Slice": []interface{}{"1", "2", "3"}},
+			map[string][]interface{}{"Slice": {"0", 0, 0.0}},
+			map[string][]interface{}{"Slice": {"1", 2, 3.0}},
+			"",
+			nil,
+		},
+
+		// another key type than destination
 		{map[string]string{"1": "3"}, map[int]interface{}{1: 0}, map[int]interface{}{1: 3}, "", nil},
+
+		{map[string]string{"1": "3"}, map[interface{}]interface{}{1: 0}, map[interface{}]interface{}{"1": "3"}, "", nil},
 
 		// struct
 		{User{"Joe"}, map[string]string{}, map[string]string{"Name": "Joe"}, "", nil},
