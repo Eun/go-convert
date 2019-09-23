@@ -99,7 +99,6 @@ func (conv Converter) ConvertReflectValue(src, dstTyp reflect.Value, options ...
 }
 
 func (conv *Converter) convert() (reflect.Value, error) {
-	var err error
 	n, err := conv.convertToType(conv.source, conv.destination)
 	if err != nil {
 		return reflect.Value{}, &Error{src: conv.source, dst: conv.destination, underlayingError: err}
