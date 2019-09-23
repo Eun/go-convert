@@ -9,7 +9,6 @@ import (
 
 func TestConvert(t *testing.T) {
 	tests := []testCase{
-		{nil, 0, nil, `source cannot be nil`, nil},
 		{0, nil, nil, `destination type cannot be nil`, nil},
 		//
 

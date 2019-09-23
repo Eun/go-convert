@@ -4,6 +4,8 @@ import "testing"
 
 func TestConvertToInt16(t *testing.T) {
 	tests := []testCase{
+		// nil
+		{nil, int16(0), nil, `unable to convert nil to int16: source cannot be nil`, nil},
 		// string
 		{"6", int16(0), int16(6), "", nil},
 		{"Hello World", int16(0), nil, `unable to convert string to int16: strconv.ParseInt: parsing "Hello World": invalid syntax`, nil},

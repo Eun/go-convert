@@ -6,6 +6,7 @@ import (
 
 func TestConvertToSlice(t *testing.T) {
 	tests := []testCase{
+		{nil, []int{}, []int{}, "", nil},
 		{6, []int{}, nil, "unable to convert int to []int", nil},
 		{[]interface{}{[]int{}}, []int{}, nil, "unable to convert []interface{} to []int: unable to convert interface{}([]int) to int", nil},
 

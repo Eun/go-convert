@@ -4,6 +4,8 @@ import "testing"
 
 func TestConvertToUint8(t *testing.T) {
 	tests := []testCase{
+		// nil
+		{nil, uint8(0), nil, `unable to convert nil to uint8: source cannot be nil`, nil},
 		// string
 		{"6", uint8(0), uint8(6), "", nil},
 		{"Hello World", uint8(0), nil, `unable to convert string to uint8: strconv.ParseUint: parsing "Hello World": invalid syntax`, nil},

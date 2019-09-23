@@ -4,6 +4,8 @@ import "testing"
 
 func TestConvertToInt(t *testing.T) {
 	tests := []testCase{
+		// nil
+		{nil, 0, nil, `unable to convert nil to int: source cannot be nil`, nil},
 		// string
 		{"6", 0, 6, "", nil},
 		{"Hello World", 0, nil, `unable to convert string to int: strconv.ParseInt: parsing "Hello World": invalid syntax`, nil},
