@@ -1,41 +1,55 @@
-package convert
+package convert_test
 
-import "testing"
+import (
+	"testing"
 
-func TestConvertToInt32(t *testing.T) {
-	tests := []testCase{
+	"github.com/Eun/go-convert/internal/testhelpers"
+)
+
+func TestInt32(t *testing.T) {
+	tests := []testhelpers.TestCase{
 		// nil
-		{nil, int32(0), nil, `unable to convert nil to int32: source cannot be nil`, nil},
+		{nil, int32(0), int32(0), `unable to convert convert.NilValue to int32: no recipe`, nil},
 		// string
 		{"6", int32(0), int32(6), "", nil},
-		{"Hello World", int32(0), nil, `unable to convert string to int32: strconv.ParseInt: parsing "Hello World": invalid syntax`, nil},
+		{"Hello World", int32(0), int32(0), `unable to convert string to int32: strconv.ParseInt: parsing "Hello World": invalid syntax`, nil},
 		// bool
 		{true, int32(0), int32(1), "", nil},
 		{false, int32(0), int32(0), "", nil},
 		// int
 		{6, int32(0), int32(6), "", nil},
+		// int8
+		{int8(6), int32(0), int32(6), "", nil},
 		// int16
 		{int16(6), int32(0), int32(6), "", nil},
 		// int32
 		{int32(6), int32(0), int32(6), "", nil},
+		// int64
+		{int64(6), int32(0), int32(6), "", nil},
 		// uint
 		{uint(6), int32(0), int32(6), "", nil},
+		// uint8
+		{uint8(6), int32(0), int32(6), "", nil},
 		// uint16
 		{uint16(6), int32(0), int32(6), "", nil},
+		// uint32
+		{uint32(6), int32(0), int32(6), "", nil},
+		// uint64
+		{uint64(6), int32(0), int32(6), "", nil},
 		// float32
 		{float32(6), int32(0), int32(6), "", nil},
 		// float64
 		{float64(6), int32(0), int32(6), "", nil},
 		// slice
-		{[]int{'H', 'e', 'l', 'l', 'o'}, int32(0), nil, "unable to convert []int to int32", nil},
-		{[]byte{'H', 'e', 'l', 'l', 'o'}, int32(0), nil, "unable to convert []uint8 to int32", nil},
-		{[]rune{'H', 'e', 'l', 'l', 'o'}, int32(0), nil, "unable to convert []int32 to int32", nil},
-		{[]string{"H", "e", "l", "l", "o"}, int32(0), nil, "unable to convert []string to int32", nil},
+		{[]int{'H', 'e', 'l', 'l', 'o'}, int32(0), int32(0), "unable to convert []int to int32: no recipe", nil},
+		{[]byte{'H', 'e', 'l', 'l', 'o'}, int32(0), int32(0), "unable to convert []uint8 to int32: no recipe", nil},
+		{[]rune{'H', 'e', 'l', 'l', 'o'}, int32(0), int32(0), "unable to convert []int32 to int32: no recipe", nil},
+		{[]string{"H", "e", "l", "l", "o"}, int32(0), int32(0), "unable to convert []string to int32: no recipe", nil},
 		// struct
-		{struct{}{}, int32(0), nil, "unable to convert struct{} to int32", nil},
+		{struct{}{}, int32(0), int32(0), "unable to convert struct {} to int32: no recipe", nil},
 	}
 
 	for i, test := range tests {
-		t.Run(getTestName(test, i), runTest(test))
+		testhelpers.RunTest(t, test, i)
 	}
 }

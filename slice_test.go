@@ -1,18 +1,20 @@
-package convert
+package convert_test
 
 import (
 	"testing"
+
+	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
-func TestConvertToSlice(t *testing.T) {
-	tests := []testCase{
+func TestSlice(t *testing.T) {
+	tests := []testhelpers.TestCase{
 		{nil, []int{}, []int{}, "", nil},
-		{6, []int{}, nil, "unable to convert int to []int", nil},
-		{[]interface{}{[]int{}}, []int{}, nil, "unable to convert []interface{} to []int: unable to convert interface{}([]int) to int", nil},
-
+		{6, []int{}, []int{}, "unable to convert int to []int: no recipe", nil},
+		{[]interface{}{[]int{}}, []int{}, []int{}, "unable to convert []interface {} to []int: unable to convert []int to int: no recipe", nil},
+		//
 		{"Hello World", []byte{}, []byte("Hello World"), "", nil},
 		{"Hello", []int{}, []int{'H', 'e', 'l', 'l', 'o'}, "", nil},
-		{"Hello", []string{}, nil, "unable to convert string to []string", nil},
+		{"Hello", []string{}, []string{}, "unable to convert string to []string: no recipe", nil},
 		// Slice to Slice
 		{[]int{1, 2, 3}, []uint{}, []uint{1, 2, 3}, "", nil},
 		{[]int{1, 2, 3}, []string{}, []string{"1", "2", "3"}, "", nil},
@@ -20,6 +22,6 @@ func TestConvertToSlice(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		t.Run(getTestName(test, i), runTest(test))
+		testhelpers.RunTest(t, test, i)
 	}
 }

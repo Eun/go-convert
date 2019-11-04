@@ -1,14 +1,18 @@
-package convert
+package convert_test
 
-import "testing"
+import (
+	"testing"
 
-func TestConvertToBool(t *testing.T) {
-	tests := []testCase{
+	"github.com/Eun/go-convert/internal/testhelpers"
+)
+
+func TestBool(t *testing.T) {
+	tests := []testhelpers.TestCase{
 		// nil
-		{nil, false, nil, `unable to convert nil to bool: source cannot be nil`, nil},
+		{nil, false, false, `unable to convert convert.NilValue to bool: no recipe`, nil},
 		// string
 		{"true", false, true, "", nil},
-		{"Hello World", false, nil, `unable to convert string to bool: strconv.ParseBool: parsing "Hello World": invalid syntax`, nil},
+		{"Hello World", false, false, `unable to convert string to bool: strconv.ParseBool: parsing "Hello World": invalid syntax`, nil},
 		// bool
 		{true, false, true, "", nil},
 		{false, false, false, "", nil},
@@ -18,24 +22,34 @@ func TestConvertToBool(t *testing.T) {
 		{int8(6), false, true, "", nil},
 		// int16
 		{int16(6), false, true, "", nil},
+		// int32
+		{int32(6), false, true, "", nil},
+		// int64
+		{int64(6), false, true, "", nil},
 		// uint
 		{uint(6), false, true, "", nil},
+		// uint8
+		{uint8(6), false, true, "", nil},
 		// uint16
 		{uint16(6), false, true, "", nil},
+		// uint32
+		{uint32(6), false, true, "", nil},
+		// uint64
+		{uint64(6), false, true, "", nil},
 		// float32
 		{float32(6), false, true, "", nil},
 		// float64
 		{float64(6), false, true, "", nil},
 		// slice
-		{[]int{'H', 'e', 'l', 'l', 'o'}, false, nil, "unable to convert []int to bool", nil},
-		{[]byte{'H', 'e', 'l', 'l', 'o'}, false, nil, "unable to convert []uint8 to bool", nil},
-		{[]rune{'H', 'e', 'l', 'l', 'o'}, false, nil, "unable to convert []int32 to bool", nil},
-		{[]string{"H", "e", "l", "l", "o"}, false, nil, "unable to convert []string to bool", nil},
+		{[]int{'H', 'e', 'l', 'l', 'o'}, false, false, "unable to convert []int to bool: no recipe", nil},
+		{[]byte{'H', 'e', 'l', 'l', 'o'}, false, false, "unable to convert []uint8 to bool: no recipe", nil},
+		{[]rune{'H', 'e', 'l', 'l', 'o'}, false, false, "unable to convert []int32 to bool: no recipe", nil},
+		{[]string{"H", "e", "l", "l", "o"}, false, false, "unable to convert []string to bool: no recipe", nil},
 		// struct
-		{struct{}{}, false, nil, "unable to convert struct{} to bool", nil},
+		{struct{}{}, false, false, "unable to convert struct {} to bool: no recipe", nil},
 	}
 
 	for i, test := range tests {
-		t.Run(getTestName(test, i), runTest(test))
+		testhelpers.RunTest(t, test, i)
 	}
 }
