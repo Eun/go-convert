@@ -180,11 +180,11 @@ func New(options ...Options) Converter {
 // Convert converts the specified value to the specified type and returns it.
 // The behavior can be influenced by using the options
 // Example:
-//     str, err := Convert(8, "")
-//     if err != nil {
+//     var str string
+//     if err := Convert(8, &str); err != nil {
 //         panic(err)
 //     }
-//     fmt.Printf("%s\n", str.(string))
+//     fmt.Printf("%s\n", str)
 func Convert(src, dst interface{}, options ...Options) error {
 	return defaultConverterInstance.Convert(src, dst, options...)
 }
