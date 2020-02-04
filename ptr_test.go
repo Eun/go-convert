@@ -11,8 +11,10 @@ func TestPtr(t *testing.T) {
 		Name *string
 	}
 
+	var nilString *string
+
 	tests := []testhelpers.TestCase{
-		// // string
+		// string
 		{testhelpers.Ptr("Hello World"), "", "Hello World", "", nil},
 		{"Hello World", testhelpers.Ptr(""), testhelpers.Ptr("Hello World"), "", nil},
 		{"Hello World", testhelpers.PtrString(""), testhelpers.PtrString("Hello World"), "", nil},
@@ -31,6 +33,8 @@ func TestPtr(t *testing.T) {
 
 		{map[string]string{"Name": "Foo"}, User{}, User{Name: testhelpers.PtrString("Foo")}, "", nil},
 		{map[string]string{"Name": "Foo"}, User{Name: testhelpers.PtrString("Bar")}, User{Name: testhelpers.PtrString("Foo")}, "", nil},
+
+		{nilString, 0, 0, "", nil},
 	}
 
 	for i, test := range tests {

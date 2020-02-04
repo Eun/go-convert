@@ -12,6 +12,7 @@ func TestInt64(t *testing.T) {
 		{nil, int64(0), int64(0), `unable to convert convert.NilValue to int64: no recipe`, nil},
 		// string
 		{"6", int64(0), int64(6), "", nil},
+		{"", int64(0), int64(0), "", nil},
 		{"Hello World", int64(0), int64(0), `unable to convert string to int64: strconv.ParseInt: parsing "Hello World": invalid syntax`, nil},
 		// bool
 		{true, int64(0), int64(1), "", nil},

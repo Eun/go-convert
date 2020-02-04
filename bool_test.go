@@ -13,6 +13,7 @@ func TestBool(t *testing.T) {
 		// string
 		{"true", false, true, "", nil},
 		{"Hello World", false, false, `unable to convert string to bool: strconv.ParseBool: parsing "Hello World": invalid syntax`, nil},
+		{"", false, false, "", nil},
 		// bool
 		{true, false, true, "", nil},
 		{false, false, false, "", nil},
