@@ -17,6 +17,7 @@ func TestTime(t *testing.T) {
 		{nil, time.Time{}, time.Time{}, `unable to convert convert.NilValue to time.Time: no recipe`, nil},
 		// string
 		{"2/1/2006", time.Time{}, someTime(), "", nil},
+		{"", time.Time{}, time.Time{}, "", nil},
 		// int
 		{100, time.Time{}, time.Unix(100, 0), "", nil},
 		// int8
@@ -46,8 +47,4 @@ func TestTime(t *testing.T) {
 	for i, test := range tests {
 		testhelpers.RunTest(t, test, i)
 	}
-}
-
-func TestA(t *testing.T) {
-
 }

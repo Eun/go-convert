@@ -124,9 +124,16 @@ func (conv defaultConverter) ConvertReflectValue(src, dst reflect.Value, options
 		return nil
 	}
 
-	if src.Kind() == reflect.Ptr && src.Elem().IsValid() {
-		debug(">> following src because no recipe for %s to %s was found\n", src.Type().String(), dst.Type().String())
-		return conv.ConvertReflectValue(src.Elem(), dst, options...)
+	if src.Kind() == reflect.Ptr {
+		if src.Elem().IsValid() {
+			debug(">> following src because no recipe for %s to %s was found\n", src.Type().String(), dst.Type().String())
+			return conv.ConvertReflectValue(src.Elem(), dst, options...)
+		}
+		if src.IsNil() {
+			debug(">> src is nil\n")
+			// make a new instance if src is nil
+			return conv.ConvertReflectValue(reflect.Zero(src.Type().Elem()), dst, options...)
+		}
 	}
 
 	if out.Elem().Kind() == reflect.Ptr {

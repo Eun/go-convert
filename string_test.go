@@ -3,6 +3,8 @@ package convert_test
 import (
 	"testing"
 
+	"time"
+
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
@@ -21,6 +23,7 @@ func (*HelloWorldPtr) String() string {
 }
 
 func TestString(t *testing.T) {
+	beginningOfTime := time.Unix(0, 0).UTC()
 	tests := []testhelpers.TestCase{
 		// nil
 		{nil, "", "", `unable to convert convert.NilValue to string: no recipe`, nil},
@@ -75,6 +78,8 @@ func TestString(t *testing.T) {
 
 		{HelloWorld{}, "Hello World", "Hello World", "", nil},
 		{&HelloWorldPtr{}, "Hello World", "Hello World", "", nil},
+		{beginningOfTime, "", "1970-01-01 00:00:00 +0000 UTC", "", nil},
+		{&beginningOfTime, "", "1970-01-01 00:00:00 +0000 UTC", "", nil},
 	}
 
 	for i, test := range tests {

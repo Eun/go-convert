@@ -13,6 +13,7 @@ func TestFloat64(t *testing.T) {
 		// string
 		{"3.2", float64(0), float64(3.2), "", nil},
 		{"Hello World", float64(0), float64(0), `unable to convert string to float64: strconv.ParseFloat: parsing "Hello World": invalid syntax`, nil},
+		{"", float64(0), float64(0), "", nil},
 		// bool
 		{true, float64(0), float64(1), "", nil},
 		{false, float64(0), float64(0), "", nil},

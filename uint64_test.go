@@ -12,6 +12,7 @@ func TestUint64(t *testing.T) {
 		{nil, uint64(0), uint64(0), `unable to convert convert.NilValue to uint64: no recipe`, nil},
 		// string
 		{"6", uint64(0), uint64(6), "", nil},
+		{"", uint64(0), uint64(0), "", nil},
 		{"Hello World", uint64(0), uint64(0), `unable to convert string to uint64: strconv.ParseUint: parsing "Hello World": invalid syntax`, nil},
 		// bool
 		{true, uint64(0), uint64(1), "", nil},

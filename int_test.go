@@ -12,6 +12,7 @@ func TestInt(t *testing.T) {
 		{nil, 0, 0, `unable to convert convert.NilValue to int: no recipe`, nil},
 		// string
 		{"6", 0, 6, "", nil},
+		{"", 0, 0, "", nil},
 		{"Hello World", 0, 0, `unable to convert string to int: strconv.ParseInt: parsing "Hello World": invalid syntax`, nil},
 		// bool
 		{true, 0, 1, "", nil},

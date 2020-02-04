@@ -12,6 +12,7 @@ func TestUint16(t *testing.T) {
 		{nil, uint16(0), uint16(0), `unable to convert convert.NilValue to uint16: no recipe`, nil},
 		// string
 		{"6", uint16(0), uint16(6), "", nil},
+		{"", uint16(0), uint16(0), "", nil},
 		{"Hello World", uint16(0), uint16(0), `unable to convert string to uint16: strconv.ParseUint: parsing "Hello World": invalid syntax`, nil},
 		// bool
 		{true, uint16(0), uint16(1), "", nil},

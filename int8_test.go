@@ -12,6 +12,7 @@ func TestInt8(t *testing.T) {
 		{nil, int8(0), int8(0), `unable to convert convert.NilValue to int8: no recipe`, nil},
 		// string
 		{"6", int8(0), int8(6), "", nil},
+		{"", int8(0), int8(0), "", nil},
 		{"Hello World", int8(0), int8(0), `unable to convert string to int8: strconv.ParseInt: parsing "Hello World": invalid syntax`, nil},
 		// bool
 		{true, int8(0), int8(1), "", nil},
