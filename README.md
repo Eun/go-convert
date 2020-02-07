@@ -47,6 +47,55 @@ convert.MustConvert([]string{"1", "2", "3"}, &sl)
 fmt.Printf("%v\n", sl)
 ```
 
+## Recipe system
+_go-convert_ uses a recipe system that defines how and which types should be converted in which type.
+A lot of recipes are already builtin (see [recipes.go](recipes.go)), however you can add your own or overwrite the builtin ones.
+```go
+type Roles struct {
+    IsAdmin     bool
+    IsDeveloper bool
+}
+
+type User struct {
+    ID    int
+    Name  string
+    Roles Roles
+}
+
+// this is the data we want to convert
+data := map[string]string{
+    "id":    "10",
+    "Name":  "Joe",
+    "roles": "AD", // this user is Admin (A) and Developer (D)
+}
+
+// create a converter
+conv := convert.New(convert.Options{
+    Recipes: convert.MustMakeRecipes(
+        // convert string into Roles
+        func(_ convert.Converter, in string, out *Roles) error {
+            (*out).IsAdmin = false
+            (*out).IsDeveloper = false
+            if strings.Contains(in, "A") {
+                (*out).IsAdmin = true
+            }
+            if strings.Contains(in, "D") {
+                (*out).IsDeveloper = true
+            }
+            return nil
+        },
+    ),
+})
+
+var user User
+conv.MustConvert(data, &user)
+// user is now an instance of User
+fmt.Printf("%#v\n", user)
+
+```
+
+
+
 
 ### Notice
 This library is using reflection so be aware it might be slow in your usecase.  

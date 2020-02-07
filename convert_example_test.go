@@ -2,7 +2,8 @@ package convert_test
 
 import (
 	"fmt"
-	"time"
+
+	"strings"
 
 	"github.com/Eun/go-convert"
 )
@@ -30,29 +31,39 @@ func ExampleConvert() {
 }
 
 func ExampleNew() {
-	// Convert a map of strings to a struct
+	type Roles struct {
+		IsAdmin     bool
+		IsDeveloper bool
+	}
+
 	type User struct {
-		ID        int
-		Name      string
-		CreatedOn time.Time
+		ID    int
+		Name  string
+		Roles Roles
 	}
 
 	// this is the data we want to convert
 	data := map[string]string{
-		"id":        "10",
-		"Name":      "Joe",
-		"createdOn": "2001-01-01T00:00:00Z",
+		"id":    "10",
+		"Name":  "Joe",
+		"roles": "AD", // this user is Admin (A) and Developer (D)
 	}
 
 	// create a converter
 	conv := convert.New(convert.Options{
 		SkipUnknownFields: false,
 		Recipes: convert.MustMakeRecipes(
-			// convert string into time
-			func(_ convert.Converter, in string, out *time.Time) error {
-				var err error
-				*out, err = time.Parse(time.RFC3339, in)
-				return err
+			// convert string into Roles
+			func(_ convert.Converter, in string, out *Roles) error {
+				(*out).IsAdmin = false
+				(*out).IsDeveloper = false
+				if strings.Contains(in, "A") {
+					(*out).IsAdmin = true
+				}
+				if strings.Contains(in, "D") {
+					(*out).IsDeveloper = true
+				}
+				return nil
 			},
 		),
 	})

@@ -11,11 +11,23 @@ type Recipe struct {
 	Func func(c Converter, in reflect.Value, out reflect.Value) error
 }
 
-// you can pass in
-// func(Converter, INVALUE, *OUTVALUE) (error)
-
-func MakeRecipe(f interface{}) (Recipe, error) {
-	v := reflect.ValueOf(f)
+// MakeRecipe makes a recipe for the passed in function.
+//
+// Note that the functions must match this format:
+//     func(Converter, INVALUE, *OUTVALUE) (error)
+//
+// Example:
+//    // convert int to bool
+//    MakeRecipe(func(c Converter, in int, out *bool) error {
+//        if in == 0 {
+//            *out = false
+//            return nil
+//        }
+//        *out = true
+//        return nil
+//    })
+func MakeRecipe(fn interface{}) (Recipe, error) {
+	v := reflect.ValueOf(fn)
 
 	if v.Kind() != reflect.Func {
 		return Recipe{}, fmt.Errorf("cannot make an recipe from an %v", v.Kind())
@@ -49,6 +61,8 @@ func MakeRecipe(f interface{}) (Recipe, error) {
 	return r, nil
 }
 
+// MakeRecipes makes a recipe slice for the passed in functions.
+// see also MakeRecipe
 func MakeRecipes(f ...interface{}) ([]Recipe, error) {
 	recipes := make([]Recipe, len(f))
 	for i, v := range f {
@@ -61,6 +75,8 @@ func MakeRecipes(f ...interface{}) ([]Recipe, error) {
 	return recipes, nil
 }
 
+// MustMakeRecipe makes a recipe for the passed in functions, but panics on error.
+// see also MakeRecipe
 func MustMakeRecipe(f interface{}) Recipe {
 	r, err := MakeRecipe(f)
 	if err != nil {
@@ -68,6 +84,9 @@ func MustMakeRecipe(f interface{}) Recipe {
 	}
 	return r
 }
+
+// MustMakeRecipes makes a recipe slice for the passed in functions, but panics on error.
+// see also MakeRecipe
 func MustMakeRecipes(f ...interface{}) []Recipe {
 	r, err := MakeRecipes(f...)
 	if err != nil {

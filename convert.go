@@ -18,14 +18,16 @@ var defaultConverterInstance = defaultConverter{
 	},
 }
 
-// Convert converts the specified value to the specified type and returns it.
+// Convert converts the specified value to the specified type.
 // The behavior can be influenced by using the options
+//
 // Example:
-//     str, err := Convert(8, "")
+//     var str string
+//     err := Convert(8, &str)
 //     if err != nil {
 //         panic(err)
 //     }
-//     fmt.Printf("%s\n", str.(string))
+//     fmt.Printf("%s\n", str)
 func (conv defaultConverter) Convert(src, dst interface{}, options ...Options) error {
 	if dst == nil {
 		return errors.New("destination type cannot be nil")
@@ -45,11 +47,8 @@ func (conv defaultConverter) MustConvert(src, dstTyp interface{}, options ...Opt
 	}
 }
 
-func (conv defaultConverter) MustConvertReflectValue(src, dstTyp reflect.Value, options ...Options) {
-	if err := conv.ConvertReflectValue(src, dstTyp, options...); err != nil {
-		panic(err)
-	}
-}
+// ConvertReflectValue converts the specified reflect value to the specified type
+// The behavior can be influenced by using the options
 func (conv defaultConverter) ConvertReflectValue(src, dst reflect.Value, options ...Options) error {
 	if !src.IsValid() {
 		return errors.New("source is invalid")
@@ -155,6 +154,13 @@ func (conv defaultConverter) ConvertReflectValue(src, dst reflect.Value, options
 	return fmt.Errorf("unable to convert %s to %s: no recipe", src.Type().String(), out.Elem().Type().String())
 }
 
+// MustConvertReflectValue calls ConvertReflectValue() but panics if there is an error
+func (conv defaultConverter) MustConvertReflectValue(src, dstTyp reflect.Value, options ...Options) {
+	if err := conv.ConvertReflectValue(src, dstTyp, options...); err != nil {
+		panic(err)
+	}
+}
+
 func (conv *defaultConverter) getGenericType(p reflect.Type) reflect.Type {
 	if p == NilType {
 		return NilType
@@ -170,6 +176,7 @@ func (conv *defaultConverter) getGenericType(p reflect.Type) reflect.Type {
 	return nil
 }
 
+// Options returns the current Options for this converter
 func (conv *defaultConverter) Options() *Options {
 	return &conv.options
 }
@@ -184,8 +191,9 @@ func New(options ...Options) Converter {
 	return &conv
 }
 
-// Convert converts the specified value to the specified type and returns it.
+// Convert converts the specified value to the specified type.
 // The behavior can be influenced by using the options
+//
 // Example:
 //     var str string
 //     if err := Convert(8, &str); err != nil {
@@ -201,6 +209,8 @@ func MustConvert(src, dst interface{}, options ...Options) {
 	defaultConverterInstance.MustConvert(src, dst, options...)
 }
 
+// ConvertReflectValue converts the specified reflect value to the specified type
+// The behavior can be influenced by using the options
 func ConvertReflectValue(src, dstTyp reflect.Value, options ...Options) error {
 	return defaultConverterInstance.ConvertReflectValue(src, dstTyp, options...)
 }
