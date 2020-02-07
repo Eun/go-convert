@@ -1,5 +1,4 @@
-# go-convert
-
+# go-convert [![Travis](https://img.shields.io/travis/Eun/go-convert.svg)](https://travis-ci.org/Eun/go-convert) [![Codecov](https://img.shields.io/codecov/c/github/Eun/go-convert.svg)](https://codecov.io/gh/Eun/go-convert) [![GoDoc](https://godoc.org/github.com/Eun/go-convert?status.svg)](https://godoc.org/github.com/Eun/go-convert) [![go-report](https://goreportcard.com/badge/github.com/Eun/go-convert)](https://goreportcard.com/report/github.com/Eun/go-convert)
 Convert a value into another type.
 
 ```bash
