@@ -2,9 +2,16 @@ package convert
 
 import "reflect"
 
+// NilValue represents a nil value to convert (from/to)
 type NilValue struct{}
+
+// MapValue represents a map value to convert (from/to)
 type MapValue struct{}
+
+// StructValue represents a struct value to convert (from/to)
 type StructValue struct{}
+
+// SliceValue represents a slice value to convert (from/to)
 type SliceValue struct{}
 
 // NilType can be used to specify a recipe with the source/destination with a nil value
