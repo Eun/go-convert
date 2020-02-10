@@ -66,7 +66,7 @@ func TestMap(t *testing.T) {
 
 		// respect nested slice
 		{
-			map[string][]interface{}{"Slice": []interface{}{"1", "2", "3"}},
+			map[string][]interface{}{"Slice": {"1", "2", "3"}},
 			map[string][]interface{}{"Slice": {"0", 0, 0.0}},
 			map[string][]interface{}{"Slice": {"1", 2, 3.0}},
 			"",
@@ -87,8 +87,8 @@ func TestMap(t *testing.T) {
 		{UserAndCompany{"Joe", Company{"Wood Inc"}}, map[string]interface{}{"Company": map[string]interface{}{}}, map[string]interface{}{"Name": "Joe", "Company": map[string]interface{}{"Name": "Wood Inc"}}, "", nil},
 		{UserAndPrivateCompany{"Joe", privateCompany{"Wood Inc"}}, map[string]interface{}{"privateCompany": map[string]interface{}{}}, map[string]interface{}{"Name": "Joe", "privateCompany": map[string]interface{}{"Name": "Wood Inc"}}, "", nil},
 
-		{map[User]string{User{"Joe"}: "Bar"}, map[string]interface{}{}, map[string]interface{}{}, "unable to convert map[convert_test.User]string to map[string]interface {}: unable to convert convert_test.User to string: convert_test.User has no String() function", nil},
-		{map[string]User{"Foo": User{"Joe"}}, map[string]string{}, map[string]string{}, "unable to convert map[string]convert_test.User to map[string]string: unable to convert convert_test.User to string: convert_test.User has no String() function", nil},
+		{map[User]string{{"Joe"}: "Bar"}, map[string]interface{}{}, map[string]interface{}{}, "unable to convert map[convert_test.User]string to map[string]interface {}: unable to convert convert_test.User to string: convert_test.User has no String() function", nil},
+		{map[string]User{"Foo": {"Joe"}}, map[string]string{}, map[string]string{}, "unable to convert map[string]convert_test.User to map[string]string: unable to convert convert_test.User to string: convert_test.User has no String() function", nil},
 		{UserAndCompany{"Joe", Company{"Wood Inc"}}, map[string]string{}, map[string]string{}, "unable to convert convert_test.UserAndCompany to map[string]string: unable to convert convert_test.Company to string: convert_test.Company has no String() function", nil},
 
 		{TimeStruct{}, map[string]string{}, map[string]string{"CreatedOn": "0001-01-01 00:00:00 +0000 UTC"}, "", nil},

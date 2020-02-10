@@ -79,9 +79,9 @@ func TestStruct(t *testing.T) {
 		{map[string]interface{}{"Foo": "Bar"}, User{}, User{}, "", &convert.Options{SkipUnknownFields: true}},
 
 		// should be unable to convert key
-		{map[User]string{User{}: ""}, struct{}{}, struct{}{}, `unable to convert map[convert_test.User]string to struct {}: unable to convert convert_test.User to string: convert_test.User has no String() function`, nil},
+		{map[User]string{{}: ""}, struct{}{}, struct{}{}, `unable to convert map[convert_test.User]string to struct {}: unable to convert convert_test.User to string: convert_test.User has no String() function`, nil},
 		// should be unable to convert value
-		{map[string]User{"Foo": User{}}, struct{ Foo Foo }{}, struct{ Foo Foo }{}, `unable to convert map[string]convert_test.User to struct { Foo convert_test.Foo }: unable to convert convert_test.User to convert_test.Foo: unable to find Name in convert_test.Foo`, nil},
+		{map[string]User{"Foo": {}}, struct{ Foo Foo }{}, struct{ Foo Foo }{}, `unable to convert map[string]convert_test.User to struct { Foo convert_test.Foo }: unable to convert convert_test.User to convert_test.Foo: unable to find Name in convert_test.Foo`, nil},
 		//
 		// struct
 		{User{"Joe"}, User{}, User{"Joe"}, "", nil},
