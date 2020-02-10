@@ -50,6 +50,7 @@ func (conv defaultConverter) MustConvert(src, dstTyp interface{}, options ...Opt
 // ConvertReflectValue converts the specified reflect value to the specified type
 // The behavior can be influenced by using the options
 func (conv defaultConverter) ConvertReflectValue(src, dst reflect.Value, options ...Options) error {
+	// prepare conversion
 	if !src.IsValid() {
 		return errors.New("source is invalid")
 	}
@@ -83,15 +84,19 @@ func (conv defaultConverter) ConvertReflectValue(src, dst reflect.Value, options
 	tmp.Elem().Set(out)
 	out = tmp
 
-	debug("converting %s `%v' to %s\n",
-		src.Type().String(),
-		printValue(src),
-		out.Elem().Type().String())
-
 	if len(options) > 0 {
 		conv.options.SkipUnknownFields = options[0].SkipUnknownFields
 		conv.options.Recipes = append(options[0].Recipes, conv.options.Recipes...)
 	}
+
+	return conv.convertNow(src, dst, out, options...)
+}
+
+func (conv defaultConverter) convertNow(src, dst, out reflect.Value, options ...Options) error {
+	debug("converting %s `%v' to %s\n",
+		src.Type().String(),
+		printValue(src),
+		out.Elem().Type().String())
 
 	genericFrom := conv.getGenericType(src.Type())
 	genericTo := conv.getGenericType(out.Elem().Type())
