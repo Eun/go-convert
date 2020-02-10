@@ -5,6 +5,8 @@ import (
 	"reflect"
 )
 
+// Recipe represents a recipe that defines which type can be converted into which type
+// and which function should be called to convert this type
 type Recipe struct {
 	From reflect.Type
 	To   reflect.Type
