@@ -3,6 +3,8 @@ package convert_test
 import (
 	"testing"
 
+	"time"
+
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
@@ -48,6 +50,8 @@ func TestUint64(t *testing.T) {
 		{[]string{"H", "e", "l", "l", "o"}, uint64(0), uint64(0), "unable to convert []string to uint64: no recipe", nil},
 		// struct
 		{struct{}{}, uint64(0), uint64(0), "unable to convert struct {} to uint64: no recipe", nil},
+		// time
+		{time.Unix(10, 10), uint64(10), uint64(10), "", nil},
 	}
 
 	for i, test := range tests {

@@ -2,6 +2,7 @@ package convert
 
 import (
 	"strconv"
+	"time"
 )
 
 func (stdRecipes) intToInt64(c Converter, in int, out *int64) error {
@@ -72,5 +73,9 @@ func (stdRecipes) stringToInt64(c Converter, in string, out *int64) error {
 		return err
 	}
 	*out = i
+	return nil
+}
+func (stdRecipes) timeToInt64(c Converter, in time.Time, out *int64) error {
+	*out = int64(in.Unix())
 	return nil
 }

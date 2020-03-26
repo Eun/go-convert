@@ -34,3 +34,17 @@ type Converter interface {
 	ConvertReflectValue(src, dst reflect.Value, options ...Options) error
 	MustConvertReflectValue(src, dst reflect.Value, options ...Options)
 }
+
+func isGenericType(t reflect.Type) bool {
+	switch t {
+	case NilType:
+		return true
+	case MapType:
+		return true
+	case StructType:
+		return true
+	case SliceType:
+		return true
+	}
+	return false
+}

@@ -3,6 +3,8 @@ package convert_test
 import (
 	"testing"
 
+	"time"
+
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
@@ -48,6 +50,8 @@ func TestUint16(t *testing.T) {
 		{[]string{"H", "e", "l", "l", "o"}, uint16(0), uint16(0), "unable to convert []string to uint16: no recipe", nil},
 		// struct
 		{struct{}{}, uint16(0), uint16(0), "unable to convert struct {} to uint16: no recipe", nil},
+		// time
+		{time.Unix(10, 10), uint16(10), uint16(10), "", nil},
 	}
 
 	for i, test := range tests {

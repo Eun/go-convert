@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func (stdRecipes) intToString(c Converter, in int, out *string) error {
@@ -173,6 +174,11 @@ func (stdRecipes) uint64SliceToString(c Converter, in []uint64, out *string) err
 		sb.WriteRune(rune(i))
 	}
 	*out = sb.String()
+	return nil
+}
+
+func (stdRecipes) timeToString(c Converter, in time.Time, out *string) error {
+	*out = in.String()
 	return nil
 }
 

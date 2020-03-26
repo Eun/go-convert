@@ -5,6 +5,10 @@ import (
 
 	"strconv"
 
+	"time"
+
+	"reflect"
+
 	"github.com/Eun/go-convert"
 	"github.com/stretchr/testify/require"
 )
@@ -78,4 +82,42 @@ func TestAddNewRecipe(t *testing.T) {
 		},
 	}))
 	require.Equal(t, "a", s)
+}
+
+func TestAddNewRecipeForGeneric(t *testing.T) {
+	var s string
+
+	require.NoError(t, convert.Convert(time.Time{}, &s, convert.Options{
+		SkipUnknownFields: false,
+		Recipes: []convert.Recipe{
+			{
+				From: convert.StructType,
+				To:   reflect.TypeOf(&s),
+				Func: func(c convert.Converter, in reflect.Value, out reflect.Value) error {
+					require.Fail(t, "Should not be called")
+					return nil
+				},
+			},
+		},
+	}))
+	require.Equal(t, "0001-01-01 00:00:00 +0000 UTC", s)
+
+	require.NoError(t, convert.Convert(struct {
+		Name string
+	}{
+		Name: "Joe",
+	}, &s, convert.Options{
+		SkipUnknownFields: false,
+		Recipes: []convert.Recipe{
+			{
+				From: convert.StructType,
+				To:   reflect.TypeOf(&s),
+				Func: func(c convert.Converter, in reflect.Value, out reflect.Value) error {
+					out.Elem().Set(reflect.ValueOf("I got you"))
+					return nil
+				},
+			},
+		},
+	}))
+	require.Equal(t, "I got you", s)
 }

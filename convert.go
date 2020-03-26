@@ -86,10 +86,31 @@ func (conv defaultConverter) ConvertReflectValue(src, dst reflect.Value, options
 
 	if len(options) > 0 {
 		conv.options.SkipUnknownFields = options[0].SkipUnknownFields
-		conv.options.Recipes = append(options[0].Recipes, conv.options.Recipes...)
+		conv.options.Recipes = appendRecipes(conv.options.Recipes, options[0].Recipes)
 	}
 
 	return conv.convertNow(src, dst, out, options...)
+}
+
+func appendRecipes(recipes, customRecipes []Recipe) []Recipe {
+	var normalRecipes []Recipe
+	var genericRecipes []Recipe
+	for i := range customRecipes {
+		if isGenericType(customRecipes[i].From) || isGenericType(customRecipes[i].To) {
+			genericRecipes = append(genericRecipes, customRecipes[i])
+			continue
+		}
+		normalRecipes = append(normalRecipes, customRecipes[i])
+	}
+	for i := range recipes {
+		if isGenericType(recipes[i].From) || isGenericType(recipes[i].To) {
+			genericRecipes = append(genericRecipes, recipes[i])
+			continue
+		}
+		normalRecipes = append(normalRecipes, recipes[i])
+	}
+
+	return append(normalRecipes, genericRecipes...)
 }
 
 func (conv defaultConverter) convertNow(src, dst, out reflect.Value, options ...Options) error {
@@ -191,7 +212,7 @@ func New(options ...Options) Converter {
 	conv := defaultConverterInstance
 	if len(options) > 0 {
 		conv.options.SkipUnknownFields = options[0].SkipUnknownFields
-		conv.options.Recipes = append(options[0].Recipes, conv.options.Recipes...)
+		conv.options.Recipes = appendRecipes(conv.options.Recipes, options[0].Recipes)
 	}
 	return &conv
 }

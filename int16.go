@@ -2,6 +2,7 @@ package convert
 
 import (
 	"strconv"
+	"time"
 )
 
 func (stdRecipes) intToInt16(c Converter, in int, out *int16) error {
@@ -72,5 +73,9 @@ func (stdRecipes) stringToInt16(c Converter, in string, out *int16) error {
 		return err
 	}
 	*out = int16(i)
+	return nil
+}
+func (stdRecipes) timeToInt16(c Converter, in time.Time, out *int16) error {
+	*out = int16(in.Unix())
 	return nil
 }

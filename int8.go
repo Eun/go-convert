@@ -2,6 +2,7 @@ package convert
 
 import (
 	"strconv"
+	"time"
 )
 
 func (stdRecipes) intToInt8(c Converter, in int, out *int8) error {
@@ -72,5 +73,9 @@ func (stdRecipes) stringToInt8(c Converter, in string, out *int8) error {
 		return err
 	}
 	*out = int8(i)
+	return nil
+}
+func (stdRecipes) timeToInt8(c Converter, in time.Time, out *int8) error {
+	*out = int8(in.Unix())
 	return nil
 }
