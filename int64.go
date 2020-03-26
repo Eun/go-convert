@@ -76,6 +76,6 @@ func (stdRecipes) stringToInt64(c Converter, in string, out *int64) error {
 	return nil
 }
 func (stdRecipes) timeToInt64(c Converter, in time.Time, out *int64) error {
-	*out = int64(in.Unix())
+	*out = in.Unix()
 	return nil
 }

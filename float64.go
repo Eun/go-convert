@@ -77,6 +77,6 @@ func (stdRecipes) stringToFloat64(c Converter, in string, out *float64) error {
 }
 
 func (stdRecipes) timeToFloat64(c Converter, in time.Time, out *float64) error {
-	*out = float64(float64(in.Unix()) + float64(in.Nanosecond())/1000000000)
+	*out = float64(in.Unix()) + float64(in.Nanosecond())/1000000000
 	return nil
 }
