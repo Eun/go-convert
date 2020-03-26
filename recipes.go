@@ -10,7 +10,6 @@ func getStdRecipes() []Recipe {
 	var r stdRecipes
 	var s string
 	return []Recipe{
-
 		// bool
 		MustMakeRecipe(r.intToBool),
 		MustMakeRecipe(r.int8ToBool),
@@ -42,6 +41,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToFloat32),
 		MustMakeRecipe(r.float64ToFloat32),
 		MustMakeRecipe(r.stringToFloat32),
+		MustMakeRecipe(r.timeToFloat32),
 
 		// float64
 		MustMakeRecipe(r.intToFloat64),
@@ -58,6 +58,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToFloat64),
 		MustMakeRecipe(r.float64ToFloat64),
 		MustMakeRecipe(r.stringToFloat64),
+		MustMakeRecipe(r.timeToFloat64),
 
 		// int
 		MustMakeRecipe(r.intToInt),
@@ -74,6 +75,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToInt),
 		MustMakeRecipe(r.float64ToInt),
 		MustMakeRecipe(r.stringToInt),
+		MustMakeRecipe(r.timeToInt),
 
 		// int8
 		MustMakeRecipe(r.intToInt8),
@@ -90,6 +92,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToInt8),
 		MustMakeRecipe(r.float64ToInt8),
 		MustMakeRecipe(r.stringToInt8),
+		MustMakeRecipe(r.timeToInt8),
 
 		// int16
 		MustMakeRecipe(r.intToInt16),
@@ -106,6 +109,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToInt16),
 		MustMakeRecipe(r.float64ToInt16),
 		MustMakeRecipe(r.stringToInt16),
+		MustMakeRecipe(r.timeToInt16),
 
 		// int32
 		MustMakeRecipe(r.intToInt32),
@@ -122,6 +126,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToInt32),
 		MustMakeRecipe(r.float64ToInt32),
 		MustMakeRecipe(r.stringToInt32),
+		MustMakeRecipe(r.timeToInt32),
 
 		// int64
 		MustMakeRecipe(r.intToInt64),
@@ -138,35 +143,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToInt64),
 		MustMakeRecipe(r.float64ToInt64),
 		MustMakeRecipe(r.stringToInt64),
-
-		// map
-		{
-			From: MapType,
-			To:   MapType,
-			Func: r.mapToMap,
-		},
-		{
-			From: StructType,
-			To:   MapType,
-			Func: r.structToMap,
-		},
-
-		// slice
-		{
-			From: reflect.TypeOf(""),
-			To:   SliceType,
-			Func: r.stringToSlice,
-		},
-		{
-			From: SliceType,
-			To:   SliceType,
-			Func: r.sliceToSlice,
-		},
-		{
-			From: NilType,
-			To:   SliceType,
-			Func: r.nilToSlice,
-		},
+		MustMakeRecipe(r.timeToInt64),
 
 		// string
 		MustMakeRecipe(r.intToString),
@@ -193,11 +170,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.uint16SliceToString),
 		MustMakeRecipe(r.uint32SliceToString),
 		MustMakeRecipe(r.uint64SliceToString),
-		{
-			From: StructType,
-			To:   reflect.TypeOf(&s),
-			Func: r.structToString,
-		},
+		MustMakeRecipe(r.timeToString),
 
 		// time
 		MustMakeRecipe(r.intToTime),
@@ -229,6 +202,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToUint),
 		MustMakeRecipe(r.float64ToUint),
 		MustMakeRecipe(r.stringToUint),
+		MustMakeRecipe(r.timeToUint),
 
 		// uint8
 		MustMakeRecipe(r.intToUint8),
@@ -245,6 +219,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToUint8),
 		MustMakeRecipe(r.float64ToUint8),
 		MustMakeRecipe(r.stringToUint8),
+		MustMakeRecipe(r.timeToUint8),
 
 		// uint16
 		MustMakeRecipe(r.intToUint16),
@@ -261,6 +236,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToUint16),
 		MustMakeRecipe(r.float64ToUint16),
 		MustMakeRecipe(r.stringToUint16),
+		MustMakeRecipe(r.timeToUint16),
 
 		// uint32
 		MustMakeRecipe(r.intToUint32),
@@ -277,6 +253,7 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToUint32),
 		MustMakeRecipe(r.float64ToUint32),
 		MustMakeRecipe(r.stringToUint32),
+		MustMakeRecipe(r.timeToUint32),
 
 		// uint64
 		MustMakeRecipe(r.intToUint64),
@@ -293,8 +270,45 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.float32ToUint64),
 		MustMakeRecipe(r.float64ToUint64),
 		MustMakeRecipe(r.stringToUint64),
+		MustMakeRecipe(r.timeToUint64),
 
-		// struct (last resort)
+		// map
+		{
+			From: MapType,
+			To:   MapType,
+			Func: r.mapToMap,
+		},
+		{
+			From: StructType,
+			To:   MapType,
+			Func: r.structToMap,
+		},
+
+		// struct to string
+		{
+			From: StructType,
+			To:   reflect.TypeOf(&s),
+			Func: r.structToString,
+		},
+
+		// slice
+		{
+			From: reflect.TypeOf(""),
+			To:   SliceType,
+			Func: r.stringToSlice,
+		},
+		{
+			From: SliceType,
+			To:   SliceType,
+			Func: r.sliceToSlice,
+		},
+		{
+			From: NilType,
+			To:   SliceType,
+			Func: r.nilToSlice,
+		},
+
+		// struct
 		{
 			From: MapType,
 			To:   StructType,

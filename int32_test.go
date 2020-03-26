@@ -3,6 +3,8 @@ package convert_test
 import (
 	"testing"
 
+	"time"
+
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
@@ -48,6 +50,8 @@ func TestInt32(t *testing.T) {
 		{[]string{"H", "e", "l", "l", "o"}, int32(0), int32(0), "unable to convert []string to int32: no recipe", nil},
 		// struct
 		{struct{}{}, int32(0), int32(0), "unable to convert struct {} to int32: no recipe", nil},
+		// time
+		{time.Unix(10, 10), int32(10), int32(10), "", nil},
 	}
 
 	for i, test := range tests {

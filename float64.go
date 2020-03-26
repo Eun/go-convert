@@ -2,6 +2,7 @@ package convert
 
 import (
 	"strconv"
+	"time"
 )
 
 func (stdRecipes) intToFloat64(c Converter, in int, out *float64) error {
@@ -72,5 +73,10 @@ func (stdRecipes) stringToFloat64(c Converter, in string, out *float64) error {
 		return err
 	}
 	*out = i
+	return nil
+}
+
+func (stdRecipes) timeToFloat64(c Converter, in time.Time, out *float64) error {
+	*out = float64(in.Unix()) + float64(in.Nanosecond())/1000000000
 	return nil
 }

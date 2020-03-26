@@ -2,6 +2,7 @@ package convert_test
 
 import (
 	"testing"
+	"time"
 
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
@@ -48,6 +49,8 @@ func TestInt(t *testing.T) {
 		{[]string{"H", "e", "l", "l", "o"}, 0, 0, "unable to convert []string to int: no recipe", nil},
 		// struct
 		{struct{}{}, 0, 0, "unable to convert struct {} to int: no recipe", nil},
+		// time
+		{time.Unix(10, 10), int(10), int(10), "", nil},
 	}
 
 	for i, test := range tests {

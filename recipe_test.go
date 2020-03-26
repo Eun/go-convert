@@ -70,3 +70,154 @@ func TestMustMakeRecipe(t *testing.T) {
 		_ = MustMakeRecipe(0)
 	})
 }
+
+func TestJoinRecipes(t *testing.T) {
+	tests := []struct {
+		Recipes       []Recipe
+		CustomRecipes []Recipe
+		Wanted        []Recipe
+	}{
+		{
+			[]Recipe{
+				{
+					From: reflect.TypeOf(""),
+					To:   reflect.TypeOf(""),
+				},
+			},
+			[]Recipe{
+				{
+					From: reflect.TypeOf(0),
+					To:   reflect.TypeOf(0),
+				},
+			},
+			[]Recipe{
+				{
+					From: reflect.TypeOf(0),
+					To:   reflect.TypeOf(0),
+				},
+				{
+					From: reflect.TypeOf(""),
+					To:   reflect.TypeOf(""),
+				},
+			},
+		},
+
+		{
+			[]Recipe{
+				{
+					From: NilType,
+					To:   reflect.TypeOf(""),
+				},
+			},
+			[]Recipe{
+				{
+					From: StructType,
+					To:   reflect.TypeOf(0),
+				},
+			},
+			[]Recipe{
+				{
+					From: StructType,
+					To:   reflect.TypeOf(0),
+				},
+				{
+					From: NilType,
+					To:   reflect.TypeOf(""),
+				},
+			},
+		},
+
+		{
+			[]Recipe{
+				{
+					From: NilType,
+					To:   reflect.TypeOf(""),
+				},
+			},
+			[]Recipe{
+				{
+					From: reflect.TypeOf(0),
+					To:   reflect.TypeOf(0),
+				},
+				{
+					From: StructType,
+					To:   reflect.TypeOf(""),
+				},
+			},
+			[]Recipe{
+				{
+					From: reflect.TypeOf(0),
+					To:   reflect.TypeOf(0),
+				},
+				{
+					From: StructType,
+					To:   reflect.TypeOf(""),
+				},
+				{
+					From: NilType,
+					To:   reflect.TypeOf(""),
+				},
+			},
+		},
+
+		{
+			[]Recipe{
+				{
+					From: reflect.TypeOf(""),
+					To:   reflect.TypeOf(""),
+				},
+				{
+					From: NilType,
+					To:   reflect.TypeOf(""),
+				},
+			},
+			[]Recipe{
+				{
+					From: reflect.TypeOf(0),
+					To:   reflect.TypeOf(0),
+				},
+				{
+					From: StructType,
+					To:   reflect.TypeOf(""),
+				},
+			},
+			[]Recipe{
+				{
+					From: reflect.TypeOf(0),
+					To:   reflect.TypeOf(0),
+				},
+				{
+					From: reflect.TypeOf(""),
+					To:   reflect.TypeOf(""),
+				},
+				{
+					From: StructType,
+					To:   reflect.TypeOf(""),
+				},
+				{
+					From: NilType,
+					To:   reflect.TypeOf(""),
+				},
+			},
+		},
+
+		// when this test fails it means that the standart recipes are not in order
+		// make sure generic types are on the end
+		{
+			getStdRecipes(),
+			nil,
+			getStdRecipes(),
+		},
+	}
+
+	for _, test := range tests {
+		t.Run("", func(t *testing.T) {
+			recipes := joinRecipes(test.Recipes, test.CustomRecipes)
+			require.Equal(t, len(test.Wanted), len(recipes))
+			for i := range recipes {
+				require.Equal(t, test.Wanted[i].From, recipes[i].From)
+				require.Equal(t, test.Wanted[i].To, recipes[i].To)
+			}
+		})
+	}
+}

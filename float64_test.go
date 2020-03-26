@@ -3,6 +3,8 @@ package convert_test
 import (
 	"testing"
 
+	"time"
+
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
@@ -48,6 +50,8 @@ func TestFloat64(t *testing.T) {
 		{[]string{"H", "e", "l", "l", "o"}, float64(0), float64(0), "unable to convert []string to float64: no recipe", nil},
 		// struct
 		{struct{}{}, float64(0), float64(0), "unable to convert struct {} to float64: no recipe", nil},
+		// time
+		{time.Unix(10, 10), float64(10.00000001), float64(10.00000001), "", nil},
 	}
 
 	for i, test := range tests {

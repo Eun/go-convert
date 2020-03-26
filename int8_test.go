@@ -3,6 +3,8 @@ package convert_test
 import (
 	"testing"
 
+	"time"
+
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
@@ -48,6 +50,8 @@ func TestInt8(t *testing.T) {
 		{[]string{"H", "e", "l", "l", "o"}, int8(0), int8(0), "unable to convert []string to int8: no recipe", nil},
 		// struct
 		{struct{}{}, int8(0), int8(0), "unable to convert struct {} to int8: no recipe", nil},
+		// time
+		{time.Unix(10, 10), int8(10), int8(10), "", nil},
 	}
 
 	for i, test := range tests {
