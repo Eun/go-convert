@@ -133,7 +133,7 @@ func (conv defaultConverter) convertNow(src, dst, out reflect.Value, options ...
 		out.Elem().Type().String())
 
 	genericFrom := conv.getGenericType(src.Type())
-	genericTo := conv.getGenericType(out.Elem().Type())
+	genericTo := conv.getGenericType(out.Type().Elem())
 
 	if genericFrom != nil {
 		debug2(">> generic from: %s\n", genericFrom.String())

@@ -11,7 +11,7 @@ import (
 func TestFloat32(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, float32(0), float32(0), `unable to convert convert.NilValue to float32: no recipe`, nil},
+		{nil, float32(0), float32(0), "", nil},
 		// string
 		{"3.2", float32(0), float32(3.2), "", nil},
 		{"Hello World", float32(0), float32(0), `unable to convert string to float32: strconv.ParseFloat: parsing "Hello World": invalid syntax`, nil},

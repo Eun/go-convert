@@ -26,7 +26,7 @@ func TestString(t *testing.T) {
 	beginningOfTime := time.Unix(0, 0).UTC()
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, "", "", `unable to convert convert.NilValue to string: no recipe`, nil},
+		{nil, "", "", "", nil},
 		// string
 		{"Hello World", "", "Hello World", "", nil},
 		// bool

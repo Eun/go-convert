@@ -9,7 +9,7 @@ import (
 func TestBool(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, false, false, `unable to convert convert.NilValue to bool: no recipe`, nil},
+		{nil, false, false, "", nil},
 		// string
 		{"true", false, true, "", nil},
 		{"Hello World", false, false, `unable to convert string to bool: strconv.ParseBool: parsing "Hello World": invalid syntax`, nil},

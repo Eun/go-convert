@@ -11,7 +11,7 @@ import (
 func TestUint(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, uint(0), uint(0), `unable to convert convert.NilValue to uint: no recipe`, nil},
+		{nil, uint(0), uint(0), "", nil},
 		// string
 		{"6", uint(0), uint(6), "", nil},
 		{"Hello World", uint(0), uint(0), `unable to convert string to uint: strconv.ParseUint: parsing "Hello World": invalid syntax`, nil},

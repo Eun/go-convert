@@ -11,7 +11,7 @@ import (
 func TestInt16(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, int16(0), int16(0), `unable to convert convert.NilValue to int16: no recipe`, nil},
+		{nil, int16(0), int16(0), "", nil},
 		// string
 		{"6", int16(0), int16(6), "", nil},
 		{"", int16(0), int16(0), "", nil},

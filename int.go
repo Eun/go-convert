@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+func (stdRecipes) nilToInt(Converter, NilValue, *int) error {
+	return nil
+}
 func (stdRecipes) intToInt(c Converter, in int, out *int) error {
 	*out = in
 	return nil

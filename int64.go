@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+func (stdRecipes) nilToInt64(Converter, NilValue, *int64) error {
+	return nil
+}
 func (stdRecipes) intToInt64(c Converter, in int, out *int64) error {
 	*out = int64(in)
 	return nil

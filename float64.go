@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+func (stdRecipes) nilToFloat64(Converter, NilValue, *float64) error {
+	return nil
+}
 func (stdRecipes) intToFloat64(c Converter, in int, out *float64) error {
 	*out = float64(in)
 	return nil
