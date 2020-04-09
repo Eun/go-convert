@@ -201,7 +201,7 @@ func (s stdRecipes) structToString(c Converter, in StructValue, out *string) err
 	return err
 }
 
-func (s stdRecipes) baseStructToString(c Converter, in reflect.Value, out *string) error {
+func (s stdRecipes) baseStructToString(_ Converter, in reflect.Value, out *string) error {
 	if !in.CanInterface() {
 		return errors.New("unable to make interface")
 	}
