@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+func (stdRecipes) nilToUint16(Converter, NilValue, *uint16) error {
+	return nil
+}
 func (stdRecipes) intToUint16(c Converter, in int, out *uint16) error {
 	*out = uint16(in)
 	return nil

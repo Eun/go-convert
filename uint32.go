@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+func (stdRecipes) nilToUint32(Converter, NilValue, *uint32) error {
+	return nil
+}
 func (stdRecipes) intToUint32(c Converter, in int, out *uint32) error {
 	*out = uint32(in)
 	return nil

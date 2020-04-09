@@ -11,7 +11,7 @@ import (
 func TestUint64(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, uint64(0), uint64(0), `unable to convert convert.NilValue to uint64: no recipe`, nil},
+		{nil, uint64(0), uint64(0), "", nil},
 		// string
 		{"6", uint64(0), uint64(6), "", nil},
 		{"", uint64(0), uint64(0), "", nil},

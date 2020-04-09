@@ -62,7 +62,7 @@ func TestStruct(t *testing.T) {
 
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, struct{}{}, struct{}{}, `unable to convert convert.NilValue to struct {}: no recipe`, nil},
+		{nil, struct{}{}, struct{}{}, "", nil},
 
 		// string
 		{"Hello World", struct{}{}, struct{}{}, "unable to convert string to struct {}: no recipe", nil},

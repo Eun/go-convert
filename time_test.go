@@ -14,7 +14,7 @@ func TestTime(t *testing.T) {
 
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, time.Time{}, time.Time{}, `unable to convert convert.NilValue to time.Time: no recipe`, nil},
+		{nil, time.Time{}, time.Time{}, "", nil},
 		// string
 		{"2/1/2006", time.Time{}, someTime(), "", nil},
 		{"", time.Time{}, time.Time{}, "", nil},

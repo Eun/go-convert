@@ -11,7 +11,7 @@ import (
 func TestFloat64(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, float64(0), float64(0), `unable to convert convert.NilValue to float64: no recipe`, nil},
+		{nil, float64(0), float64(0), "", nil},
 		// string
 		{"3.2", float64(0), float64(3.2), "", nil},
 		{"Hello World", float64(0), float64(0), `unable to convert string to float64: strconv.ParseFloat: parsing "Hello World": invalid syntax`, nil},

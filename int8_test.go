@@ -11,7 +11,7 @@ import (
 func TestInt8(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, int8(0), int8(0), `unable to convert convert.NilValue to int8: no recipe`, nil},
+		{nil, int8(0), int8(0), "", nil},
 		// string
 		{"6", int8(0), int8(6), "", nil},
 		{"", int8(0), int8(0), "", nil},

@@ -10,7 +10,7 @@ import (
 func TestInt(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, 0, 0, `unable to convert convert.NilValue to int: no recipe`, nil},
+		{nil, 0, 0, "", nil},
 		// string
 		{"6", 0, 6, "", nil},
 		{"", 0, 0, "", nil},

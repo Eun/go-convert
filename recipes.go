@@ -1,14 +1,9 @@
 package convert
 
-import (
-	"reflect"
-)
-
 type stdRecipes struct{}
 
 func getStdRecipes() []Recipe {
 	var r stdRecipes
-	var s string
 	return []Recipe{
 		// bool
 		MustMakeRecipe(r.intToBool),
@@ -272,52 +267,38 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.stringToUint64),
 		MustMakeRecipe(r.timeToUint64),
 
+		MustMakeRecipe(r.nilToBool),
+		MustMakeRecipe(r.nilToFloat32),
+		MustMakeRecipe(r.nilToFloat64),
+		MustMakeRecipe(r.nilToInt),
+		MustMakeRecipe(r.nilToInt8),
+		MustMakeRecipe(r.nilToInt16),
+		MustMakeRecipe(r.nilToInt32),
+		MustMakeRecipe(r.nilToInt64),
+		MustMakeRecipe(r.nilToString),
+		MustMakeRecipe(r.nilToTime),
+		MustMakeRecipe(r.nilToUint),
+		MustMakeRecipe(r.nilToUint8),
+		MustMakeRecipe(r.nilToUint16),
+		MustMakeRecipe(r.nilToUint32),
+		MustMakeRecipe(r.nilToUint64),
+
 		// map
-		{
-			From: MapType,
-			To:   MapType,
-			Func: r.mapToMap,
-		},
-		{
-			From: StructType,
-			To:   MapType,
-			Func: r.structToMap,
-		},
+		MustMakeRecipe(r.nilToMap),
+		MustMakeRecipe(r.mapToMap),
+		MustMakeRecipe(r.structToMap),
 
 		// struct to string
-		{
-			From: StructType,
-			To:   reflect.TypeOf(&s),
-			Func: r.structToString,
-		},
+		MustMakeRecipe(r.structToString),
 
 		// slice
-		{
-			From: reflect.TypeOf(""),
-			To:   SliceType,
-			Func: r.stringToSlice,
-		},
-		{
-			From: SliceType,
-			To:   SliceType,
-			Func: r.sliceToSlice,
-		},
-		{
-			From: NilType,
-			To:   SliceType,
-			Func: r.nilToSlice,
-		},
+		MustMakeRecipe(r.nilToSlice),
+		MustMakeRecipe(r.stringToSlice),
+		MustMakeRecipe(r.sliceToSlice),
 
 		// struct
-		{
-			From: MapType,
-			To:   StructType,
-			Func: r.mapToStruct,
-		},
-		{
-			From: StructType,
-			To:   StructType,
-			Func: r.structToStruct,
-		},
+		MustMakeRecipe(r.nilToStruct),
+		MustMakeRecipe(r.mapToStruct),
+		MustMakeRecipe(r.structToStruct),
 	}
 }

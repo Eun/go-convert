@@ -18,17 +18,6 @@ func TestEdgeCases(t *testing.T) {
 		err := convert.Convert(0, nil)
 		require.EqualError(t, err, `destination type cannot be nil`)
 	})
-	t.Run("interface source", func(t *testing.T) {
-		var src interface{}
-		var dst int
-		err := convert.Convert(src, &dst)
-		require.EqualError(t, err, `unable to convert convert.NilValue to int: no recipe`)
-	})
-	t.Run("nil source", func(t *testing.T) {
-		var dst int
-		err := convert.Convert(nil, &dst)
-		require.EqualError(t, err, `unable to convert convert.NilValue to int: no recipe`)
-	})
 
 	t.Run("interface destination", func(t *testing.T) {
 		t.Run("string interface", func(t *testing.T) {

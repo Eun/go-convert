@@ -39,7 +39,7 @@ func TestMap(t *testing.T) {
 
 	tests := []testhelpers.TestCase{
 		// nil
-		{nil, map[string]interface{}{}, map[string]interface{}{}, "unable to convert convert.NilValue to map[string]interface {}: no recipe", nil},
+		{nil, map[string]interface{}{}, map[string]interface{}{}, "", nil},
 		// string
 		{"Hello World", map[string]interface{}{}, map[string]interface{}{}, "unable to convert string to map[string]interface {}: no recipe", nil},
 		// map

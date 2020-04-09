@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+func (stdRecipes) nilToUint8(Converter, NilValue, *uint8) error {
+	return nil
+}
 func (stdRecipes) intToUint8(c Converter, in int, out *uint8) error {
 	*out = uint8(in)
 	return nil
