@@ -93,7 +93,7 @@ func (s stdRecipes) structToFloat64(c Converter, in StructValue, out *float64) e
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Float64()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToFloat64(c, v, out) == nil {
@@ -110,7 +110,7 @@ func (s stdRecipes) baseStructToFloat64(_ Converter, in reflect.Value, out *floa
 		Float64() float64
 	}
 
-	// check for struct.String()
+	// check for struct.Float64()
 	i, ok := in.Interface().(toFloat64)
 	if ok {
 		*out = i.Float64()

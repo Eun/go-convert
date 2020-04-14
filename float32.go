@@ -93,7 +93,7 @@ func (s stdRecipes) structToFloat32(c Converter, in StructValue, out *float32) e
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Float32()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToFloat32(c, v, out) == nil {
@@ -110,7 +110,7 @@ func (s stdRecipes) baseStructToFloat32(_ Converter, in reflect.Value, out *floa
 		Float32() float32
 	}
 
-	// check for struct.String()
+	// check for struct.Float32()
 	i, ok := in.Interface().(toFloat32)
 	if ok {
 		*out = i.Float32()

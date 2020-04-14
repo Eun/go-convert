@@ -92,7 +92,7 @@ func (s stdRecipes) structToInt32(c Converter, in StructValue, out *int32) error
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Int32()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToInt32(c, v, out) == nil {
@@ -109,7 +109,7 @@ func (s stdRecipes) baseStructToInt32(_ Converter, in reflect.Value, out *int32)
 		Int32() int32
 	}
 
-	// check for struct.String()
+	// check for struct.Int32()
 	i, ok := in.Interface().(toInt32)
 	if ok {
 		*out = i.Int32()

@@ -92,7 +92,7 @@ func (s stdRecipes) structToUint(c Converter, in StructValue, out *uint) error {
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Uint()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToUint(c, v, out) == nil {
@@ -109,7 +109,7 @@ func (s stdRecipes) baseStructToUint(_ Converter, in reflect.Value, out *uint) e
 		Uint() uint
 	}
 
-	// check for struct.String()
+	// check for struct.Uint()
 	i, ok := in.Interface().(toUint)
 	if ok {
 		*out = i.Uint()

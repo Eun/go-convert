@@ -109,7 +109,7 @@ func (s stdRecipes) baseStructToInt(_ Converter, in reflect.Value, out *int) err
 		Int() int
 	}
 
-	// check for struct.String()
+	// check for struct.Int()
 	i, ok := in.Interface().(toInt)
 	if ok {
 		*out = i.Int()

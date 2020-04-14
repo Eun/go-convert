@@ -92,7 +92,7 @@ func (s stdRecipes) structToBool(c Converter, in StructValue, out *bool) error {
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Bool()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToBool(c, v, out) == nil {

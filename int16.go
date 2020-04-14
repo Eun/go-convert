@@ -92,7 +92,7 @@ func (s stdRecipes) structToInt16(c Converter, in StructValue, out *int16) error
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Int16()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToInt16(c, v, out) == nil {
@@ -109,7 +109,7 @@ func (s stdRecipes) baseStructToInt16(_ Converter, in reflect.Value, out *int16)
 		Int16() int16
 	}
 
-	// check for struct.String()
+	// check for struct.Int16()
 	i, ok := in.Interface().(toInt16)
 	if ok {
 		*out = i.Int16()

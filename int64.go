@@ -92,7 +92,7 @@ func (s stdRecipes) structToInt64(c Converter, in StructValue, out *int64) error
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Int64()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToInt64(c, v, out) == nil {
@@ -109,7 +109,7 @@ func (s stdRecipes) baseStructToInt64(_ Converter, in reflect.Value, out *int64)
 		Int64() int64
 	}
 
-	// check for struct.String()
+	// check for struct.Int64()
 	i, ok := in.Interface().(toInt64)
 	if ok {
 		*out = i.Int64()

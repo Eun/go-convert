@@ -92,7 +92,7 @@ func (s stdRecipes) structToUint32(c Converter, in StructValue, out *uint32) err
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Uint32()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToUint32(c, v, out) == nil {
@@ -109,7 +109,7 @@ func (s stdRecipes) baseStructToUint32(_ Converter, in reflect.Value, out *uint3
 		Uint32() uint32
 	}
 
-	// check for struct.String()
+	// check for struct.Uint32()
 	i, ok := in.Interface().(toUint)
 	if ok {
 		*out = i.Uint32()

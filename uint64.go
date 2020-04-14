@@ -92,7 +92,7 @@ func (s stdRecipes) structToUint64(c Converter, in StructValue, out *uint64) err
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Uint64()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToUint64(c, v, out) == nil {
@@ -109,7 +109,7 @@ func (s stdRecipes) baseStructToUint64(_ Converter, in reflect.Value, out *uint6
 		Uint64() uint64
 	}
 
-	// check for struct.String()
+	// check for struct.Uint64()
 	i, ok := in.Interface().(toUint)
 	if ok {
 		*out = i.Uint64()

@@ -93,7 +93,7 @@ func (s stdRecipes) structToUint8(c Converter, in StructValue, out *uint8) error
 		return err
 	}
 
-	// test for *struct.Int()
+	// test for *struct.Uint8()
 	v := reflect.New(in.Type())
 	v.Elem().Set(in.Value)
 	if s.baseStructToUint8(c, v, out) == nil {
@@ -110,7 +110,7 @@ func (s stdRecipes) baseStructToUint8(_ Converter, in reflect.Value, out *uint8)
 		Uint8() uint8
 	}
 
-	// check for struct.String()
+	// check for struct.Uint8()
 	i, ok := in.Interface().(toUint)
 	if ok {
 		*out = i.Uint8()
