@@ -8,6 +8,20 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
+type SomeStructWithFloat32Func struct {
+}
+
+func (SomeStructWithFloat32Func) Float32() float32 {
+	return 10
+}
+
+type SomeStructWithFloat32FuncPtr struct {
+}
+
+func (*SomeStructWithFloat32FuncPtr) Float32() float32 {
+	return 10
+}
+
 func TestFloat32(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
@@ -49,9 +63,12 @@ func TestFloat32(t *testing.T) {
 		{[]rune{'H', 'e', 'l', 'l', 'o'}, float32(0), float32(0), "unable to convert []int32 to float32: no recipe", nil},
 		{[]string{"H", "e", "l", "l", "o"}, float32(0), float32(0), "unable to convert []string to float32: no recipe", nil},
 		// struct
-		{struct{}{}, float32(0), float32(0), "unable to convert struct {} to float32: no recipe", nil},
+		{struct{}{}, float32(0), float32(0), "unable to convert struct {} to float32: struct {} has no Float32() function", nil},
 		// time
 		{time.Unix(10, 10), float32(10), float32(10), "", nil},
+
+		{SomeStructWithFloat32Func{}, float32(0), float32(10), "", nil},
+		{&SomeStructWithFloat32FuncPtr{}, float32(0), float32(10), "", nil},
 	}
 
 	for i, test := range tests {

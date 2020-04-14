@@ -1,6 +1,9 @@
 package convert
 
 import (
+	"errors"
+	"fmt"
+	"reflect"
 	"strconv"
 	"time"
 )
@@ -81,4 +84,37 @@ func (stdRecipes) stringToInt32(c Converter, in string, out *int32) error {
 func (stdRecipes) timeToInt32(c Converter, in time.Time, out *int32) error {
 	*out = int32(in.Unix())
 	return nil
+}
+
+func (s stdRecipes) structToInt32(c Converter, in StructValue, out *int32) error {
+	err := s.baseStructToInt32(c, in.Value, out)
+	if err == nil {
+		return err
+	}
+
+	// test for *struct.Int()
+	v := reflect.New(in.Type())
+	v.Elem().Set(in.Value)
+	if s.baseStructToInt32(c, v, out) == nil {
+		return nil
+	}
+	return err
+}
+
+func (s stdRecipes) baseStructToInt32(_ Converter, in reflect.Value, out *int32) error {
+	if !in.CanInterface() {
+		return errors.New("unable to make interface")
+	}
+	type toInt32 interface {
+		Int32() int32
+	}
+
+	// check for struct.String()
+	i, ok := in.Interface().(toInt32)
+	if ok {
+		*out = i.Int32()
+		return nil
+	}
+
+	return fmt.Errorf("%s has no Int32() function", in.Type().String())
 }

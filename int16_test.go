@@ -8,6 +8,20 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
+type SomeStructWithInt16Func struct {
+}
+
+func (SomeStructWithInt16Func) Int16() int16 {
+	return 16
+}
+
+type SomeStructWithInt16FuncPtr struct {
+}
+
+func (*SomeStructWithInt16FuncPtr) Int16() int16 {
+	return 16
+}
+
 func TestInt16(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
@@ -49,9 +63,12 @@ func TestInt16(t *testing.T) {
 		{[]rune{'H', 'e', 'l', 'l', 'o'}, int16(0), int16(0), "unable to convert []int32 to int16: no recipe", nil},
 		{[]string{"H", "e", "l", "l", "o"}, int16(0), int16(0), "unable to convert []string to int16: no recipe", nil},
 		// struct
-		{struct{}{}, int16(0), int16(0), "unable to convert struct {} to int16: no recipe", nil},
+		{struct{}{}, int16(0), int16(0), "unable to convert struct {} to int16: struct {} has no Int16() function", nil},
 		// time
 		{time.Unix(10, 10), int16(10), int16(10), "", nil},
+
+		{SomeStructWithInt16Func{}, int16(0), int16(16), "", nil},
+		{&SomeStructWithInt16FuncPtr{}, int16(0), int16(16), "", nil},
 	}
 
 	for i, test := range tests {

@@ -289,7 +289,20 @@ func getStdRecipes() []Recipe {
 		MustMakeRecipe(r.structToMap),
 
 		// struct to string
+		MustMakeRecipe(r.structToBool),
 		MustMakeRecipe(r.structToString),
+		MustMakeRecipe(r.structToFloat32),
+		MustMakeRecipe(r.structToFloat64),
+		MustMakeRecipe(r.structToInt),
+		MustMakeRecipe(r.structToInt8),
+		MustMakeRecipe(r.structToInt16),
+		MustMakeRecipe(r.structToInt32),
+		MustMakeRecipe(r.structToInt64),
+		MustMakeRecipe(r.structToUint),
+		MustMakeRecipe(r.structToUint8),
+		MustMakeRecipe(r.structToUint16),
+		MustMakeRecipe(r.structToUint32),
+		MustMakeRecipe(r.structToUint64),
 
 		// slice
 		MustMakeRecipe(r.nilToSlice),

@@ -8,17 +8,17 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
-type HelloWorld struct {
+type SomeStructWithStringFunc struct {
 }
 
-func (HelloWorld) String() string {
+func (SomeStructWithStringFunc) String() string {
 	return "Hello World"
 }
 
-type HelloWorldPtr struct {
+type SomeStructWithStringFuncPtr struct {
 }
 
-func (*HelloWorldPtr) String() string {
+func (*SomeStructWithStringFuncPtr) String() string {
 	return "Hello World"
 }
 
@@ -76,8 +76,8 @@ func TestString(t *testing.T) {
 		// struct
 		{struct{}{}, "", "", "unable to convert struct {} to string: struct {} has no String() function", nil},
 
-		{HelloWorld{}, "Hello World", "Hello World", "", nil},
-		{&HelloWorldPtr{}, "Hello World", "Hello World", "", nil},
+		{SomeStructWithStringFunc{}, "Hello World", "Hello World", "", nil},
+		{&SomeStructWithStringFuncPtr{}, "Hello World", "Hello World", "", nil},
 		{beginningOfTime, "", "1970-01-01 00:00:00 +0000 UTC", "", nil},
 		{&beginningOfTime, "", "1970-01-01 00:00:00 +0000 UTC", "", nil},
 	}
