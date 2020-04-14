@@ -7,6 +7,20 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
+type SomeStructWithIntFunc struct {
+}
+
+func (SomeStructWithIntFunc) Int() int {
+	return 8
+}
+
+type SomeStructWithIntFuncPtr struct {
+}
+
+func (*SomeStructWithIntFuncPtr) Int() int {
+	return 8
+}
+
 func TestInt(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
@@ -48,9 +62,12 @@ func TestInt(t *testing.T) {
 		{[]rune{'H', 'e', 'l', 'l', 'o'}, 0, 0, "unable to convert []int32 to int: no recipe", nil},
 		{[]string{"H", "e", "l", "l", "o"}, 0, 0, "unable to convert []string to int: no recipe", nil},
 		// struct
-		{struct{}{}, 0, 0, "unable to convert struct {} to int: no recipe", nil},
+		{struct{}{}, 0, 0, "unable to convert struct {} to int: struct {} has no Int() function", nil},
 		// time
 		{time.Unix(10, 10), int(10), int(10), "", nil},
+
+		{SomeStructWithIntFunc{}, 0, 8, "", nil},
+		{&SomeStructWithIntFuncPtr{}, 0, 8, "", nil},
 	}
 
 	for i, test := range tests {

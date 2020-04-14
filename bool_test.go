@@ -6,6 +6,20 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
+type SomeStructWithBoolFunc struct {
+}
+
+func (SomeStructWithBoolFunc) Bool() bool {
+	return true
+}
+
+type SomeStructWithBoolFuncPtr struct {
+}
+
+func (*SomeStructWithBoolFuncPtr) Bool() bool {
+	return true
+}
+
 func TestBool(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
@@ -47,7 +61,10 @@ func TestBool(t *testing.T) {
 		{[]rune{'H', 'e', 'l', 'l', 'o'}, false, false, "unable to convert []int32 to bool: no recipe", nil},
 		{[]string{"H", "e", "l", "l", "o"}, false, false, "unable to convert []string to bool: no recipe", nil},
 		// struct
-		{struct{}{}, false, false, "unable to convert struct {} to bool: no recipe", nil},
+		{struct{}{}, false, false, "unable to convert struct {} to bool: struct {} has no Bool() function", nil},
+
+		{SomeStructWithBoolFunc{}, false, true, "", nil},
+		{&SomeStructWithBoolFuncPtr{}, false, true, "", nil},
 	}
 
 	for i, test := range tests {

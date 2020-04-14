@@ -8,6 +8,20 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
+type SomeStructWithUint8Func struct {
+}
+
+func (SomeStructWithUint8Func) Uint8() uint8 {
+	return 8
+}
+
+type SomeStructWithUint8FuncPtr struct {
+}
+
+func (*SomeStructWithUint8FuncPtr) Uint8() uint8 {
+	return 8
+}
+
 func TestUint8(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
@@ -49,9 +63,12 @@ func TestUint8(t *testing.T) {
 		{[]rune{'H', 'e', 'l', 'l', 'o'}, uint8(0), uint8(0), "unable to convert []int32 to uint8: no recipe", nil},
 		{[]string{"H", "e", "l", "l", "o"}, uint8(0), uint8(0), "unable to convert []string to uint8: no recipe", nil},
 		// struct
-		{struct{}{}, uint8(0), uint8(0), "unable to convert struct {} to uint8: no recipe", nil},
+		{struct{}{}, uint8(0), uint8(0), "unable to convert struct {} to uint8: struct {} has no Uint8() function", nil},
 		// time
 		{time.Unix(10, 10), uint8(10), uint8(10), "", nil},
+
+		{SomeStructWithUint8Func{}, uint8(0), uint8(8), "", nil},
+		{&SomeStructWithUint8FuncPtr{}, uint8(0), uint8(8), "", nil},
 	}
 
 	for i, test := range tests {

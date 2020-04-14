@@ -1,6 +1,9 @@
 package convert
 
 import (
+	"errors"
+	"fmt"
+	"reflect"
 	"strconv"
 	"time"
 )
@@ -81,4 +84,37 @@ func (stdRecipes) stringToInt8(c Converter, in string, out *int8) error {
 func (stdRecipes) timeToInt8(c Converter, in time.Time, out *int8) error {
 	*out = int8(in.Unix())
 	return nil
+}
+
+func (s stdRecipes) structToInt8(c Converter, in StructValue, out *int8) error {
+	err := s.baseStructToInt8(c, in.Value, out)
+	if err == nil {
+		return err
+	}
+
+	// test for *struct.Int8()
+	v := reflect.New(in.Type())
+	v.Elem().Set(in.Value)
+	if s.baseStructToInt8(c, v, out) == nil {
+		return nil
+	}
+	return err
+}
+
+func (s stdRecipes) baseStructToInt8(_ Converter, in reflect.Value, out *int8) error {
+	if !in.CanInterface() {
+		return errors.New("unable to make interface")
+	}
+	type toInt8 interface {
+		Int8() int8
+	}
+
+	// check for struct.Int8()
+	i, ok := in.Interface().(toInt8)
+	if ok {
+		*out = i.Int8()
+		return nil
+	}
+
+	return fmt.Errorf("%s has no Int8() function", in.Type().String())
 }

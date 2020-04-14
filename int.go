@@ -1,6 +1,9 @@
 package convert
 
 import (
+	"errors"
+	"fmt"
+	"reflect"
 	"strconv"
 	"time"
 )
@@ -81,4 +84,37 @@ func (stdRecipes) stringToInt(c Converter, in string, out *int) error {
 func (stdRecipes) timeToInt(c Converter, in time.Time, out *int) error {
 	*out = int(in.Unix())
 	return nil
+}
+
+func (s stdRecipes) structToInt(c Converter, in StructValue, out *int) error {
+	err := s.baseStructToInt(c, in.Value, out)
+	if err == nil {
+		return err
+	}
+
+	// test for *struct.Int()
+	v := reflect.New(in.Type())
+	v.Elem().Set(in.Value)
+	if s.baseStructToInt(c, v, out) == nil {
+		return nil
+	}
+	return err
+}
+
+func (s stdRecipes) baseStructToInt(_ Converter, in reflect.Value, out *int) error {
+	if !in.CanInterface() {
+		return errors.New("unable to make interface")
+	}
+	type toInt interface {
+		Int() int
+	}
+
+	// check for struct.Int()
+	i, ok := in.Interface().(toInt)
+	if ok {
+		*out = i.Int()
+		return nil
+	}
+
+	return fmt.Errorf("%s has no Int() function", in.Type().String())
 }

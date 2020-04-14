@@ -8,6 +8,20 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
+type SomeStructWithFloat64Func struct {
+}
+
+func (SomeStructWithFloat64Func) Float64() float64 {
+	return 10
+}
+
+type SomeStructWithFloat64FuncPtr struct {
+}
+
+func (*SomeStructWithFloat64FuncPtr) Float64() float64 {
+	return 10
+}
+
 func TestFloat64(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
@@ -49,9 +63,12 @@ func TestFloat64(t *testing.T) {
 		{[]rune{'H', 'e', 'l', 'l', 'o'}, float64(0), float64(0), "unable to convert []int32 to float64: no recipe", nil},
 		{[]string{"H", "e", "l", "l", "o"}, float64(0), float64(0), "unable to convert []string to float64: no recipe", nil},
 		// struct
-		{struct{}{}, float64(0), float64(0), "unable to convert struct {} to float64: no recipe", nil},
+		{struct{}{}, float64(0), float64(0), "unable to convert struct {} to float64: struct {} has no Float64() function", nil},
 		// time
 		{time.Unix(10, 10), float64(10.00000001), float64(10.00000001), "", nil},
+
+		{SomeStructWithFloat64Func{}, float64(0), float64(10), "", nil},
+		{&SomeStructWithFloat64FuncPtr{}, float64(0), float64(10), "", nil},
 	}
 
 	for i, test := range tests {

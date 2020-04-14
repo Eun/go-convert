@@ -8,6 +8,20 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
+type SomeStructWithInt64Func struct {
+}
+
+func (SomeStructWithInt64Func) Int64() int64 {
+	return 64
+}
+
+type SomeStructWithInt64FuncPtr struct {
+}
+
+func (*SomeStructWithInt64FuncPtr) Int64() int64 {
+	return 64
+}
+
 func TestInt64(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
@@ -49,9 +63,12 @@ func TestInt64(t *testing.T) {
 		{[]rune{'H', 'e', 'l', 'l', 'o'}, int64(0), int64(0), "unable to convert []int32 to int64: no recipe", nil},
 		{[]string{"H", "e", "l", "l", "o"}, int64(0), int64(0), "unable to convert []string to int64: no recipe", nil},
 		// struct
-		{struct{}{}, int64(0), int64(0), "unable to convert struct {} to int64: no recipe", nil},
+		{struct{}{}, int64(0), int64(0), "unable to convert struct {} to int64: struct {} has no Int64() function", nil},
 		// time
 		{time.Unix(10, 10), int64(10), int64(10), "", nil},
+
+		{SomeStructWithInt64Func{}, int64(0), int64(64), "", nil},
+		{&SomeStructWithInt64FuncPtr{}, int64(0), int64(64), "", nil},
 	}
 
 	for i, test := range tests {

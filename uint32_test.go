@@ -8,6 +8,20 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
+type SomeStructWithUint32Func struct {
+}
+
+func (SomeStructWithUint32Func) Uint32() uint32 {
+	return 32
+}
+
+type SomeStructWithUint32FuncPtr struct {
+}
+
+func (*SomeStructWithUint32FuncPtr) Uint32() uint32 {
+	return 32
+}
+
 func TestUint32(t *testing.T) {
 	tests := []testhelpers.TestCase{
 		// nil
@@ -49,9 +63,12 @@ func TestUint32(t *testing.T) {
 		{[]rune{'H', 'e', 'l', 'l', 'o'}, uint32(0), uint32(0), "unable to convert []int32 to uint32: no recipe", nil},
 		{[]string{"H", "e", "l", "l", "o"}, uint32(0), uint32(0), "unable to convert []string to uint32: no recipe", nil},
 		// struct
-		{struct{}{}, uint32(0), uint32(0), "unable to convert struct {} to uint32: no recipe", nil},
+		{struct{}{}, uint32(0), uint32(0), "unable to convert struct {} to uint32: struct {} has no Uint32() function", nil},
 		// time
 		{time.Unix(10, 10), uint32(10), uint32(10), "", nil},
+
+		{SomeStructWithUint32Func{}, uint32(0), uint32(32), "", nil},
+		{&SomeStructWithUint32FuncPtr{}, uint32(0), uint32(32), "", nil},
 	}
 
 	for i, test := range tests {
