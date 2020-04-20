@@ -105,15 +105,22 @@ func (s stdRecipes) baseStructToUint32(_ Converter, in reflect.Value, out *uint3
 	if !in.CanInterface() {
 		return errors.New("unable to make interface")
 	}
-	type toUint interface {
+	type toUint32 interface {
 		Uint32() uint32
+	}
+	type toUint32WithErr interface {
+		Uint32() (uint32, error)
 	}
 
 	// check for struct.Uint32()
-	i, ok := in.Interface().(toUint)
-	if ok {
+	if i, ok := in.Interface().(toUint32); ok {
 		*out = i.Uint32()
 		return nil
+	}
+	if i, ok := in.Interface().(toUint32WithErr); ok {
+		var err error
+		*out, err = i.Uint32()
+		return err
 	}
 
 	return fmt.Errorf("%s has no Uint32() function", in.Type().String())

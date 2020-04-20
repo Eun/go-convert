@@ -8,18 +8,28 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
-type SomeStructWithFloat64Func struct {
-}
+type SomeStructWithFloat64Func struct{}
 
 func (SomeStructWithFloat64Func) Float64() float64 {
 	return 10
 }
 
-type SomeStructWithFloat64FuncPtr struct {
-}
+type SomeStructWithFloat64FuncPtr struct{}
 
 func (*SomeStructWithFloat64FuncPtr) Float64() float64 {
 	return 10
+}
+
+type SomeStructWithFloat64WithErrFunc struct{}
+
+func (SomeStructWithFloat64WithErrFunc) Float64() (float64, error) {
+	return 10, nil
+}
+
+type SomeStructWithFloat64WithErrFuncPtr struct{}
+
+func (*SomeStructWithFloat64WithErrFuncPtr) Float64() (float64, error) {
+	return 10, nil
 }
 
 func TestFloat64(t *testing.T) {
@@ -69,6 +79,8 @@ func TestFloat64(t *testing.T) {
 
 		{SomeStructWithFloat64Func{}, float64(0), float64(10), "", nil},
 		{&SomeStructWithFloat64FuncPtr{}, float64(0), float64(10), "", nil},
+		{SomeStructWithFloat64WithErrFunc{}, float64(0), float64(10), "", nil},
+		{&SomeStructWithFloat64WithErrFuncPtr{}, float64(0), float64(10), "", nil},
 	}
 
 	for i, test := range tests {

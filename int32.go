@@ -108,12 +108,19 @@ func (s stdRecipes) baseStructToInt32(_ Converter, in reflect.Value, out *int32)
 	type toInt32 interface {
 		Int32() int32
 	}
+	type toInt32WithErr interface {
+		Int32() (int32, error)
+	}
 
 	// check for struct.Int32()
-	i, ok := in.Interface().(toInt32)
-	if ok {
+	if i, ok := in.Interface().(toInt32); ok {
 		*out = i.Int32()
 		return nil
+	}
+	if i, ok := in.Interface().(toInt32WithErr); ok {
+		var err error
+		*out, err = i.Int32()
+		return err
 	}
 
 	return fmt.Errorf("%s has no Int32() function", in.Type().String())

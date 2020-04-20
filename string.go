@@ -208,12 +208,19 @@ func (s stdRecipes) baseStructToString(_ Converter, in reflect.Value, out *strin
 	type toString interface {
 		String() string
 	}
+	type toStringWithErr interface {
+		String() (string, error)
+	}
 
 	// check for struct.String()
-	i, ok := in.Interface().(toString)
-	if ok {
+	if i, ok := in.Interface().(toString); ok {
 		*out = i.String()
 		return nil
+	}
+	if i, ok := in.Interface().(toStringWithErr); ok {
+		var err error
+		*out, err = i.String()
+		return err
 	}
 
 	return fmt.Errorf("%s has no String() function", in.Type().String())

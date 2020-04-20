@@ -6,18 +6,28 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
-type SomeStructWithBoolFunc struct {
-}
+type SomeStructWithBoolFunc struct{}
 
 func (SomeStructWithBoolFunc) Bool() bool {
 	return true
 }
 
-type SomeStructWithBoolFuncPtr struct {
-}
+type SomeStructWithBoolFuncPtr struct{}
 
 func (*SomeStructWithBoolFuncPtr) Bool() bool {
 	return true
+}
+
+type SomeStructWithBoolErrFunc struct{}
+
+func (SomeStructWithBoolErrFunc) Bool() (bool, error) {
+	return true, nil
+}
+
+type SomeStructWithBoolErrFuncPtr struct{}
+
+func (*SomeStructWithBoolErrFuncPtr) Bool() (bool, error) {
+	return true, nil
 }
 
 func TestBool(t *testing.T) {
@@ -65,6 +75,8 @@ func TestBool(t *testing.T) {
 
 		{SomeStructWithBoolFunc{}, false, true, "", nil},
 		{&SomeStructWithBoolFuncPtr{}, false, true, "", nil},
+		{SomeStructWithBoolErrFunc{}, false, true, "", nil},
+		{&SomeStructWithBoolErrFuncPtr{}, false, true, "", nil},
 	}
 
 	for i, test := range tests {

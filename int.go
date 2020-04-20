@@ -108,12 +108,19 @@ func (s stdRecipes) baseStructToInt(_ Converter, in reflect.Value, out *int) err
 	type toInt interface {
 		Int() int
 	}
+	type toIntWithErr interface {
+		Int() (int, error)
+	}
 
 	// check for struct.Int()
-	i, ok := in.Interface().(toInt)
-	if ok {
+	if i, ok := in.Interface().(toInt); ok {
 		*out = i.Int()
 		return nil
+	}
+	if i, ok := in.Interface().(toIntWithErr); ok {
+		var err error
+		*out, err = i.Int()
+		return err
 	}
 
 	return fmt.Errorf("%s has no Int() function", in.Type().String())

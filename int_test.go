@@ -7,18 +7,28 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
-type SomeStructWithIntFunc struct {
-}
+type SomeStructWithIntFunc struct{}
 
 func (SomeStructWithIntFunc) Int() int {
 	return 8
 }
 
-type SomeStructWithIntFuncPtr struct {
-}
+type SomeStructWithIntFuncPtr struct{}
 
 func (*SomeStructWithIntFuncPtr) Int() int {
 	return 8
+}
+
+type SomeStructWithIntWithErrFunc struct{}
+
+func (SomeStructWithIntWithErrFunc) Int() (int, error) {
+	return 8, nil
+}
+
+type SomeStructWithIntWithErrFuncPtr struct{}
+
+func (*SomeStructWithIntWithErrFuncPtr) Int() (int, error) {
+	return 8, nil
 }
 
 func TestInt(t *testing.T) {
@@ -68,6 +78,8 @@ func TestInt(t *testing.T) {
 
 		{SomeStructWithIntFunc{}, 0, 8, "", nil},
 		{&SomeStructWithIntFuncPtr{}, 0, 8, "", nil},
+		{SomeStructWithIntWithErrFunc{}, 0, 8, "", nil},
+		{&SomeStructWithIntWithErrFuncPtr{}, 0, 8, "", nil},
 	}
 
 	for i, test := range tests {

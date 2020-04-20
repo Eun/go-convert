@@ -105,15 +105,22 @@ func (s stdRecipes) baseStructToUint64(_ Converter, in reflect.Value, out *uint6
 	if !in.CanInterface() {
 		return errors.New("unable to make interface")
 	}
-	type toUint interface {
+	type toUint64 interface {
 		Uint64() uint64
+	}
+	type toUint64WithErr interface {
+		Uint64() (uint64, error)
 	}
 
 	// check for struct.Uint64()
-	i, ok := in.Interface().(toUint)
-	if ok {
+	if i, ok := in.Interface().(toUint64); ok {
 		*out = i.Uint64()
 		return nil
+	}
+	if i, ok := in.Interface().(toUint64WithErr); ok {
+		var err error
+		*out, err = i.Uint64()
+		return err
 	}
 
 	return fmt.Errorf("%s has no Uint64() function", in.Type().String())

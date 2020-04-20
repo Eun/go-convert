@@ -108,12 +108,19 @@ func (s stdRecipes) baseStructToUint(_ Converter, in reflect.Value, out *uint) e
 	type toUint interface {
 		Uint() uint
 	}
+	type toUintWithErr interface {
+		Uint() (uint, error)
+	}
 
 	// check for struct.Uint()
-	i, ok := in.Interface().(toUint)
-	if ok {
+	if i, ok := in.Interface().(toUint); ok {
 		*out = i.Uint()
 		return nil
+	}
+	if i, ok := in.Interface().(toUintWithErr); ok {
+		var err error
+		*out, err = i.Uint()
+		return err
 	}
 
 	return fmt.Errorf("%s has no Uint() function", in.Type().String())

@@ -106,15 +106,22 @@ func (s stdRecipes) baseStructToUint8(_ Converter, in reflect.Value, out *uint8)
 	if !in.CanInterface() {
 		return errors.New("unable to make interface")
 	}
-	type toUint interface {
+	type toUint8 interface {
 		Uint8() uint8
+	}
+	type toUint8WithErr interface {
+		Uint8() (uint8, error)
 	}
 
 	// check for struct.Uint8()
-	i, ok := in.Interface().(toUint)
-	if ok {
+	if i, ok := in.Interface().(toUint8); ok {
 		*out = i.Uint8()
 		return nil
+	}
+	if i, ok := in.Interface().(toUint8WithErr); ok {
+		var err error
+		*out, err = i.Uint8()
+		return err
 	}
 
 	return fmt.Errorf("%s has no Uint8() function", in.Type().String())

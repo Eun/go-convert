@@ -8,18 +8,28 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
-type SomeStructWithInt32Func struct {
-}
+type SomeStructWithInt32Func struct{}
 
 func (SomeStructWithInt32Func) Int32() int32 {
 	return 32
 }
 
-type SomeStructWithInt32FuncPtr struct {
-}
+type SomeStructWithInt32FuncPtr struct{}
 
 func (*SomeStructWithInt32FuncPtr) Int32() int32 {
 	return 32
+}
+
+type SomeStructWithInt32WithErrFunc struct{}
+
+func (SomeStructWithInt32WithErrFunc) Int32() (int32, error) {
+	return 32, nil
+}
+
+type SomeStructWithInt32WithErrFuncPtr struct{}
+
+func (*SomeStructWithInt32WithErrFuncPtr) Int32() (int32, error) {
+	return 32, nil
 }
 
 func TestInt32(t *testing.T) {
@@ -69,6 +79,8 @@ func TestInt32(t *testing.T) {
 
 		{SomeStructWithInt32Func{}, int32(0), int32(32), "", nil},
 		{&SomeStructWithInt32FuncPtr{}, int32(0), int32(32), "", nil},
+		{SomeStructWithInt32WithErrFunc{}, int32(0), int32(32), "", nil},
+		{&SomeStructWithInt32WithErrFuncPtr{}, int32(0), int32(32), "", nil},
 	}
 
 	for i, test := range tests {
