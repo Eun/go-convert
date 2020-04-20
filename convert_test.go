@@ -99,3 +99,9 @@ func TestAddNewRecipeForGeneric(t *testing.T) {
 	}))
 	require.Equal(t, "I got you", s)
 }
+
+func TestConvertNilToNil(t *testing.T) {
+	var nilValue interface{} = nil
+	require.NoError(t, convert.Convert(nil, &nilValue))
+	require.Nil(t, nilValue)
+}
