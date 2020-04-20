@@ -8,18 +8,28 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
-type SomeStructWithInt8Func struct {
-}
+type SomeStructWithInt8Func struct{}
 
 func (SomeStructWithInt8Func) Int8() int8 {
 	return 8
 }
 
-type SomeStructWithInt8FuncPtr struct {
-}
+type SomeStructWithInt8FuncPtr struct{}
 
 func (*SomeStructWithInt8FuncPtr) Int8() int8 {
 	return 8
+}
+
+type SomeStructWithInt8WithErrFunc struct{}
+
+func (SomeStructWithInt8WithErrFunc) Int8() (int8, error) {
+	return 8, nil
+}
+
+type SomeStructWithInt8WithErrFuncPtr struct{}
+
+func (*SomeStructWithInt8WithErrFuncPtr) Int8() (int8, error) {
+	return 8, nil
 }
 
 func TestInt8(t *testing.T) {
@@ -69,6 +79,8 @@ func TestInt8(t *testing.T) {
 
 		{SomeStructWithInt8Func{}, int8(0), int8(8), "", nil},
 		{&SomeStructWithInt8FuncPtr{}, int8(0), int8(8), "", nil},
+		{SomeStructWithInt8WithErrFunc{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithInt8WithErrFuncPtr{}, int8(0), int8(8), "", nil},
 	}
 
 	for i, test := range tests {

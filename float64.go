@@ -109,12 +109,19 @@ func (s stdRecipes) baseStructToFloat64(_ Converter, in reflect.Value, out *floa
 	type toFloat64 interface {
 		Float64() float64
 	}
+	type toFloat64WithErr interface {
+		Float64() (float64, error)
+	}
 
 	// check for struct.Float64()
-	i, ok := in.Interface().(toFloat64)
-	if ok {
+	if i, ok := in.Interface().(toFloat64); ok {
 		*out = i.Float64()
 		return nil
+	}
+	if i, ok := in.Interface().(toFloat64WithErr); ok {
+		var err error
+		*out, err = i.Float64()
+		return err
 	}
 
 	return fmt.Errorf("%s has no Float64() function", in.Type().String())

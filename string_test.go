@@ -8,18 +8,28 @@ import (
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
-type SomeStructWithStringFunc struct {
-}
+type SomeStructWithStringFunc struct{}
 
 func (SomeStructWithStringFunc) String() string {
 	return "Hello World"
 }
 
-type SomeStructWithStringFuncPtr struct {
+type SomeStructWithStringFuncPtr struct{}
+
+func (*SomeStructWithStringErrFuncPtr) String() string {
+	return "Hello World"
 }
 
-func (*SomeStructWithStringFuncPtr) String() string {
-	return "Hello World"
+type SomeStructWithStringErrFunc struct{}
+
+func (SomeStructWithStringErrFunc) String() (string, error) {
+	return "Hello World", nil
+}
+
+type SomeStructWithStringErrFuncPtr struct{}
+
+func (*SomeStructWithStringFuncPtr) String() (string, error) {
+	return "Hello World", nil
 }
 
 func TestString(t *testing.T) {
@@ -78,6 +88,8 @@ func TestString(t *testing.T) {
 
 		{SomeStructWithStringFunc{}, "Hello World", "Hello World", "", nil},
 		{&SomeStructWithStringFuncPtr{}, "Hello World", "Hello World", "", nil},
+		{SomeStructWithStringErrFunc{}, "Hello World", "Hello World", "", nil},
+		{&SomeStructWithStringErrFuncPtr{}, "Hello World", "Hello World", "", nil},
 		{beginningOfTime, "", "1970-01-01 00:00:00 +0000 UTC", "", nil},
 		{&beginningOfTime, "", "1970-01-01 00:00:00 +0000 UTC", "", nil},
 	}

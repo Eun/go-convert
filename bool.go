@@ -108,12 +108,19 @@ func (s stdRecipes) baseStructToBool(_ Converter, in reflect.Value, out *bool) e
 	type toBool interface {
 		Bool() bool
 	}
+	type toBoolWithErr interface {
+		Bool() (bool, error)
+	}
 
 	// check for struct.String()
-	i, ok := in.Interface().(toBool)
-	if ok {
+	if i, ok := in.Interface().(toBool); ok {
 		*out = i.Bool()
 		return nil
+	}
+	if i, ok := in.Interface().(toBoolWithErr); ok {
+		var err error
+		*out, err = i.Bool()
+		return err
 	}
 
 	return fmt.Errorf("%s has no Bool() function", in.Type().String())

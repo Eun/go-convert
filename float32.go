@@ -109,12 +109,19 @@ func (s stdRecipes) baseStructToFloat32(_ Converter, in reflect.Value, out *floa
 	type toFloat32 interface {
 		Float32() float32
 	}
+	type toFloat32WithErr interface {
+		Float32() (float32, error)
+	}
 
 	// check for struct.Float32()
-	i, ok := in.Interface().(toFloat32)
-	if ok {
+	if i, ok := in.Interface().(toFloat32); ok {
 		*out = i.Float32()
 		return nil
+	}
+	if i, ok := in.Interface().(toFloat32WithErr); ok {
+		var err error
+		*out, err = i.Float32()
+		return err
 	}
 
 	return fmt.Errorf("%s has no Float32() function", in.Type().String())
