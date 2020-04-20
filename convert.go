@@ -75,7 +75,14 @@ func (conv defaultConverter) ConvertReflectValue(src, dst reflect.Value, options
 
 	if !out.IsValid() {
 		// dst was an interface to nothing
+		// if source was nil destination should also be nil
+		if src.Type() == NilType {
+			var n interface{}
+			dst.Elem().Set(reflect.ValueOf(&n).Elem())
+			return nil
+		}
 		dst.Elem().Set(src)
+
 		return nil
 	}
 
