@@ -13,10 +13,10 @@ jobs:
           args: --template -o /github/workspace/README.md /github/workspace/.github/README.md
       - name: Commit files
         run: |
-            git add
+            git add README.md
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
-            git commit -m "regenerated" -a
+            git commit -m "regenerated"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
