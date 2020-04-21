@@ -3,17 +3,13 @@ on: push
 jobs:
   fill-readme-with-samples:
     runs-on: ubuntu-latest
-    services:
-      minigo:
-        image: eunts/minigo
-        options: -v ${{ github.workspace }}:/workspace --name minigo
     steps:
       - name: "Checkout"
         uses: actions/checkout@master
       - name: "Update Readme"
-        uses: "docker://docker"
+        uses: "docker://eunts/minigo:latest"
         with:
-          args: minigo --template /workspace/.github/README.md > /workspace/README.md
+          args: --template /github/workspace/.github/README.md > /github/workspace/README.md
       - name: Commit files
         run: |
             git config --local user.email "action@github.com"
