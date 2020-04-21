@@ -18,6 +18,7 @@ jobs:
           entrypoint: /minigo
           args: --template -o /github/workspace/README.md /github/workspace/.github/README.md.template
       - name: Commit files
+        if: github.event_name == 'push'
         run: |
             if [[ `git status --porcelain` ]]; then
               git add -f README.md
@@ -26,7 +27,8 @@ jobs:
               git commit -m "regenerated"
             fi
       - name: Push changes
+        if: github.event_name == 'push'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref || github.ref }}
+          branch: ${{ github.ref }}
