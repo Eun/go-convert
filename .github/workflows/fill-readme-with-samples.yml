@@ -9,7 +9,7 @@ jobs:
       - name: "Update Readme"
         uses: "docker://eunts/minigo:latest"
         with:
-          entrypoint: minigo
+          entrypoint: /minigo
           args: --template /github/workspace/.github/README.md > /github/workspace/README.md
       - name: Commit files
         run: |
