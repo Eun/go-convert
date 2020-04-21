@@ -78,8 +78,15 @@ func TestFloat64(t *testing.T) {
 		{time.Unix(10, 10), float64(10.00000001), float64(10.00000001), "", nil},
 
 		{SomeStructWithFloat64Func{}, float64(0), float64(10), "", nil},
+		{&SomeStructWithFloat64Func{}, float64(0), float64(10), "", nil},
+
+		{SomeStructWithFloat64FuncPtr{}, float64(0), float64(10), "", nil},
 		{&SomeStructWithFloat64FuncPtr{}, float64(0), float64(10), "", nil},
+
 		{SomeStructWithFloat64WithErrFunc{}, float64(0), float64(10), "", nil},
+		{&SomeStructWithFloat64WithErrFunc{}, float64(0), float64(10), "", nil},
+
+		{SomeStructWithFloat64WithErrFuncPtr{}, float64(0), float64(10), "", nil},
 		{&SomeStructWithFloat64WithErrFuncPtr{}, float64(0), float64(10), "", nil},
 	}
 

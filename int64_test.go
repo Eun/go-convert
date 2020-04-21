@@ -78,8 +78,15 @@ func TestInt64(t *testing.T) {
 		{time.Unix(10, 10), int64(10), int64(10), "", nil},
 
 		{SomeStructWithInt64Func{}, int64(0), int64(64), "", nil},
+		{&SomeStructWithInt64Func{}, int64(0), int64(64), "", nil},
+
+		{SomeStructWithInt64FuncPtr{}, int64(0), int64(64), "", nil},
 		{&SomeStructWithInt64FuncPtr{}, int64(0), int64(64), "", nil},
+
 		{SomeStructWithInt64WithErrFunc{}, int64(0), int64(64), "", nil},
+		{&SomeStructWithInt64WithErrFunc{}, int64(0), int64(64), "", nil},
+
+		{SomeStructWithInt64WithErrFuncPtr{}, int64(0), int64(64), "", nil},
 		{&SomeStructWithInt64WithErrFuncPtr{}, int64(0), int64(64), "", nil},
 	}
 

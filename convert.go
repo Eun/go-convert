@@ -6,6 +6,13 @@ import (
 	"reflect"
 )
 
+// ConvertRecipes can be used to add recipes to a type in a convenient way
+type ConvertRecipes interface {
+	ConvertRecipes() []Recipe
+}
+
+var convertRecipesType = reflect.TypeOf((*ConvertRecipes)(nil)).Elem()
+
 // Converter is the instance that will be used to convert values
 type defaultConverter struct {
 	options Options
@@ -150,6 +157,14 @@ func (conv defaultConverter) convertNow(src, dst, out reflect.Value, options ...
 		debug2(">> generic to:   %s\n", genericTo.String())
 	}
 
+	// add convert recipes if available
+	if convertRecipes := getConvertRecipes(src); len(convertRecipes) > 0 {
+		conv.options.Recipes = joinRecipes(conv.options.Recipes, convertRecipes)
+	}
+	if convertRecipes := getConvertRecipes(dst); len(convertRecipes) > 0 {
+		conv.options.Recipes = joinRecipes(conv.options.Recipes, convertRecipes)
+	}
+
 	for _, recipe := range conv.options.Recipes {
 		if recipe.From != src.Type() && recipe.From != genericFrom {
 			debug2(">> skipping %v because src %s != %s\n", recipe.Func, recipe.From.String(), src.Type().String())
@@ -288,4 +303,40 @@ func printValue(value reflect.Value) string {
 	}
 
 	return ""
+}
+
+func getConvertRecipes(value reflect.Value) []Recipe {
+	if !value.IsValid() {
+		return nil
+	}
+	get := func(value reflect.Value) []Recipe {
+		if !value.IsValid() {
+			return nil
+		}
+		if !value.CanInterface() {
+			return nil
+		}
+		if !value.Type().Implements(convertRecipesType) {
+			return nil
+		}
+		if r, ok := value.Interface().(ConvertRecipes); ok {
+			return r.ConvertRecipes()
+		}
+		return nil
+	}
+
+	if recipes := get(value); len(recipes) > 0 {
+		return recipes
+	}
+
+	// maybe the pointer to this has it implemented?
+	v := reflect.New(value.Type())
+	if !v.Elem().CanSet() {
+		return nil
+	}
+	if !value.CanInterface() {
+		return nil
+	}
+	v.Elem().Set(value)
+	return get(v)
 }

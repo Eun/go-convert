@@ -77,8 +77,15 @@ func TestInt(t *testing.T) {
 		{time.Unix(10, 10), int(10), int(10), "", nil},
 
 		{SomeStructWithIntFunc{}, 0, 8, "", nil},
+		{&SomeStructWithIntFunc{}, 0, 8, "", nil},
+
+		{SomeStructWithIntFuncPtr{}, 0, 8, "", nil},
 		{&SomeStructWithIntFuncPtr{}, 0, 8, "", nil},
+
 		{SomeStructWithIntWithErrFunc{}, 0, 8, "", nil},
+		{&SomeStructWithIntWithErrFunc{}, 0, 8, "", nil},
+
+		{SomeStructWithIntWithErrFuncPtr{}, 0, 8, "", nil},
 		{&SomeStructWithIntWithErrFuncPtr{}, 0, 8, "", nil},
 	}
 

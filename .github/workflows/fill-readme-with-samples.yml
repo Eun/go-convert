@@ -1,0 +1,24 @@
+name: fill-readme-with-samples
+on: push
+jobs:
+  fill-readme-with-samples:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@master
+      - name: "Update Readme"
+        uses: "docker://eunts/minigo:latest"
+        with:
+          entrypoint: /minigo
+          args: --template -o /github/workspace/README.md /github/workspace/.github/README.md.template
+      - name: Commit files
+        run: |
+            git add -f README.md
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git commit -m "regenerated"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

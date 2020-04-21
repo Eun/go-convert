@@ -78,8 +78,15 @@ func TestInt16(t *testing.T) {
 		{time.Unix(10, 10), int16(10), int16(10), "", nil},
 
 		{SomeStructWithInt16Func{}, int16(0), int16(16), "", nil},
+		{&SomeStructWithInt16Func{}, int16(0), int16(16), "", nil},
+
+		{SomeStructWithInt16FuncPtr{}, int16(0), int16(16), "", nil},
 		{&SomeStructWithInt16FuncPtr{}, int16(0), int16(16), "", nil},
+
 		{SomeStructWithInt16WithErrFunc{}, int16(0), int16(16), "", nil},
+		{&SomeStructWithInt16WithErrFunc{}, int16(0), int16(16), "", nil},
+
+		{SomeStructWithInt16WithErrFuncPtr{}, int16(0), int16(16), "", nil},
 		{&SomeStructWithInt16WithErrFuncPtr{}, int16(0), int16(16), "", nil},
 	}
 
