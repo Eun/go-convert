@@ -9,7 +9,8 @@ jobs:
       - name: "Update Readme"
         uses: "docker://eunts/minigo:latest"
         with:
-          args: minigo --template /github/workspace/.github/README.md > /github/workspace/README.md
+          entrypoint: minigo
+          args: --template /github/workspace/.github/README.md > /github/workspace/README.md
       - name: Commit files
         run: |
             git config --local user.email "action@github.com"
