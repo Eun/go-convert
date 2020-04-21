@@ -52,6 +52,6 @@ func main() {
 
 	var users []User
 	convert.MustConvert(data, &users)
-	// user is now an instance of User
+	// users is now an instance of []User
 	fmt.Printf("%#v\n", users)
 }
