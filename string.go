@@ -69,7 +69,7 @@ func (stdRecipes) boolToString(c Converter, in bool, out *string) error {
 }
 
 func (stdRecipes) float32ToString(_ Converter, in float32, out *string) error {
-	if out != nil && len(*out) > 0 {
+	if *out != "" && strings.ContainsRune(*out, '%') {
 		*out = fmt.Sprintf(*out, in)
 		return nil
 	}
@@ -78,7 +78,7 @@ func (stdRecipes) float32ToString(_ Converter, in float32, out *string) error {
 }
 
 func (stdRecipes) float64ToString(_ Converter, in float64, out *string) error {
-	if out != nil && len(*out) > 0 {
+	if *out != "" && strings.ContainsRune(*out, '%') {
 		*out = fmt.Sprintf(*out, in)
 		return nil
 	}

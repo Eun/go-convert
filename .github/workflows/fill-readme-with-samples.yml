@@ -18,12 +18,16 @@ jobs:
           entrypoint: /minigo
           args: --template -o /github/workspace/README.md /github/workspace/.github/README.md.template
       - name: Commit files
+        if: github.event_name == 'push'
         run: |
-            git add -f README.md
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git commit -m "regenerated"
+            if [[ `git status --porcelain` ]]; then
+              git add -f README.md
+              git config --local user.email "action@github.com"
+              git config --local user.name "GitHub Action"
+              git commit -m "regenerated"
+            fi
       - name: Push changes
+        if: github.event_name == 'push'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

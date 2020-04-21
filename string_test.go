@@ -65,10 +65,14 @@ func TestString(t *testing.T) {
 		{float32(6), "", "6.000000", "", nil},
 		// float32 with format
 		{float32(6), "%06.2f", "006.00", "", nil},
+		// float32 with invalid format
+		{float32(6), "06.2f", "6.000000", "", nil},
 		// float64
 		{float64(6), "", "6.000000", "", nil},
 		// float64 with format
 		{float64(6), "%06.2f", "006.00", "", nil},
+		// float64 with invalid format
+		{float64(6), "06.2f", "6.000000", "", nil},
 		// slice
 		{[]int{'H', 'e', 'l', 'l', 'o'}, "", "Hello", "", nil},
 		{[]int8{'H', 'e', 'l', 'l', 'o'}, "", "Hello", "", nil},
