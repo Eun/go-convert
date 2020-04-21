@@ -10,7 +10,7 @@ jobs:
         uses: "docker://eunts/minigo:latest"
         with:
           entrypoint: /minigo
-          args: --template -o /github/workspace/README.md /github/workspace/.github/README.md
+          args: --template -o /github/workspace/README.md.template /github/workspace/.github/README.md
       - name: Commit files
         run: |
             git add README.md
