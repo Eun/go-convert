@@ -87,9 +87,17 @@ func TestString(t *testing.T) {
 		{struct{}{}, "", "", "unable to convert struct {} to string: struct {} has no String() function", nil},
 
 		{SomeStructWithStringFunc{}, "Hello World", "Hello World", "", nil},
+		{&SomeStructWithStringFunc{}, "Hello World", "Hello World", "", nil},
+
+		{SomeStructWithStringFuncPtr{}, "Hello World", "Hello World", "", nil},
 		{&SomeStructWithStringFuncPtr{}, "Hello World", "Hello World", "", nil},
+
 		{SomeStructWithStringErrFunc{}, "Hello World", "Hello World", "", nil},
+		{&SomeStructWithStringErrFunc{}, "Hello World", "Hello World", "", nil},
+
+		{SomeStructWithStringErrFuncPtr{}, "Hello World", "Hello World", "", nil},
 		{&SomeStructWithStringErrFuncPtr{}, "Hello World", "Hello World", "", nil},
+
 		{beginningOfTime, "", "1970-01-01 00:00:00 +0000 UTC", "", nil},
 		{&beginningOfTime, "", "1970-01-01 00:00:00 +0000 UTC", "", nil},
 	}

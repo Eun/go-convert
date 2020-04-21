@@ -74,8 +74,15 @@ func TestBool(t *testing.T) {
 		{struct{}{}, false, false, "unable to convert struct {} to bool: struct {} has no Bool() function", nil},
 
 		{SomeStructWithBoolFunc{}, false, true, "", nil},
+		{&SomeStructWithBoolFunc{}, false, true, "", nil},
+
+		{SomeStructWithBoolFuncPtr{}, false, true, "", nil},
 		{&SomeStructWithBoolFuncPtr{}, false, true, "", nil},
+
 		{SomeStructWithBoolErrFunc{}, false, true, "", nil},
+		{&SomeStructWithBoolErrFunc{}, false, true, "", nil},
+
+		{SomeStructWithBoolErrFuncPtr{}, false, true, "", nil},
 		{&SomeStructWithBoolErrFuncPtr{}, false, true, "", nil},
 	}
 

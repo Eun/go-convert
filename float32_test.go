@@ -78,8 +78,15 @@ func TestFloat32(t *testing.T) {
 		{time.Unix(10, 10), float32(10), float32(10), "", nil},
 
 		{SomeStructWithFloat32Func{}, float32(0), float32(10), "", nil},
+		{&SomeStructWithFloat32Func{}, float32(0), float32(10), "", nil},
+
+		{SomeStructWithFloat32FuncPtr{}, float32(0), float32(10), "", nil},
 		{&SomeStructWithFloat32FuncPtr{}, float32(0), float32(10), "", nil},
+
 		{SomeStructWithFloat32WithErrFunc{}, float32(0), float32(10), "", nil},
+		{&SomeStructWithFloat32WithErrFunc{}, float32(0), float32(10), "", nil},
+
+		{SomeStructWithFloat32WithErrFuncPtr{}, float32(0), float32(10), "", nil},
 		{&SomeStructWithFloat32WithErrFuncPtr{}, float32(0), float32(10), "", nil},
 	}
 

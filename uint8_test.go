@@ -78,9 +78,16 @@ func TestUint8(t *testing.T) {
 		{time.Unix(10, 10), uint8(10), uint8(10), "", nil},
 
 		{SomeStructWithUint8Func{}, uint8(0), uint8(8), "", nil},
+		{&SomeStructWithUint8Func{}, uint8(0), uint8(8), "", nil},
+
+		{SomeStructWithUint8FuncPtr{}, uint8(0), uint8(8), "", nil},
 		{&SomeStructWithUint8FuncPtr{}, uint8(0), uint8(8), "", nil},
+
 		{SomeStructWithUint8WithErrFunc{}, uint8(0), uint8(8), "", nil},
+		{&SomeStructWithUint8WithErrFunc{}, uint8(0), uint8(8), "", nil},
+
 		{&SomeStructWithUint8WithErrFuncPtr{}, uint8(0), uint8(8), "", nil},
+		{SomeStructWithUint8WithErrFuncPtr{}, uint8(0), uint8(8), "", nil},
 	}
 
 	for i, test := range tests {

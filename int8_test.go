@@ -78,8 +78,15 @@ func TestInt8(t *testing.T) {
 		{time.Unix(10, 10), int8(10), int8(10), "", nil},
 
 		{SomeStructWithInt8Func{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithInt8Func{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithInt8FuncPtr{}, int8(0), int8(8), "", nil},
 		{&SomeStructWithInt8FuncPtr{}, int8(0), int8(8), "", nil},
+
 		{SomeStructWithInt8WithErrFunc{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithInt8WithErrFunc{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithInt8WithErrFuncPtr{}, int8(0), int8(8), "", nil},
 		{&SomeStructWithInt8WithErrFuncPtr{}, int8(0), int8(8), "", nil},
 	}
 

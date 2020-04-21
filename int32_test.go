@@ -78,8 +78,15 @@ func TestInt32(t *testing.T) {
 		{time.Unix(10, 10), int32(10), int32(10), "", nil},
 
 		{SomeStructWithInt32Func{}, int32(0), int32(32), "", nil},
+		{&SomeStructWithInt32Func{}, int32(0), int32(32), "", nil},
+
+		{SomeStructWithInt32FuncPtr{}, int32(0), int32(32), "", nil},
 		{&SomeStructWithInt32FuncPtr{}, int32(0), int32(32), "", nil},
+
 		{SomeStructWithInt32WithErrFunc{}, int32(0), int32(32), "", nil},
+		{&SomeStructWithInt32WithErrFunc{}, int32(0), int32(32), "", nil},
+
+		{SomeStructWithInt32WithErrFuncPtr{}, int32(0), int32(32), "", nil},
 		{&SomeStructWithInt32WithErrFuncPtr{}, int32(0), int32(32), "", nil},
 	}
 
