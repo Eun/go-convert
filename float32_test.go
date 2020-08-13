@@ -88,6 +88,18 @@ func TestFloat32(t *testing.T) {
 
 		{SomeStructWithFloat32WithErrFuncPtr{}, float32(0), float32(10), "", nil},
 		{&SomeStructWithFloat32WithErrFuncPtr{}, float32(0), float32(10), "", nil},
+
+		{SomeStructWithFloat64Func{}, float32(0), float32(10), "", nil},
+		{&SomeStructWithFloat64Func{}, float32(0), float32(10), "", nil},
+
+		{SomeStructWithFloat64FuncPtr{}, float32(0), float32(10), "", nil},
+		{&SomeStructWithFloat64FuncPtr{}, float32(0), float32(10), "", nil},
+
+		{SomeStructWithFloat64WithErrFunc{}, float32(0), float32(10), "", nil},
+		{&SomeStructWithFloat64WithErrFunc{}, float32(0), float32(10), "", nil},
+
+		{SomeStructWithFloat64WithErrFuncPtr{}, float32(0), float32(10), "", nil},
+		{&SomeStructWithFloat64WithErrFuncPtr{}, float32(0), float32(10), "", nil},
 	}
 
 	for i, test := range tests {

@@ -77,6 +77,114 @@ func TestUint64(t *testing.T) {
 		// time
 		{time.Unix(10, 10), uint64(10), uint64(10), "", nil},
 
+		{SomeStructWithIntFunc{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithIntFunc{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithIntFuncPtr{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithIntFuncPtr{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithIntWithErrFunc{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithIntWithErrFunc{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithIntWithErrFuncPtr{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithIntWithErrFuncPtr{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithInt8Func{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithInt8Func{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithInt8FuncPtr{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithInt8FuncPtr{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithInt8WithErrFunc{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithInt8WithErrFunc{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithInt8WithErrFuncPtr{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithInt8WithErrFuncPtr{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithInt16Func{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithInt16Func{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithInt16FuncPtr{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithInt16FuncPtr{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithInt16WithErrFunc{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithInt16WithErrFunc{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithInt16WithErrFuncPtr{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithInt16WithErrFuncPtr{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithInt32Func{}, uint64(0), uint64(32), "", nil},
+		{&SomeStructWithInt32Func{}, uint64(0), uint64(32), "", nil},
+
+		{SomeStructWithInt32FuncPtr{}, uint64(0), uint64(32), "", nil},
+		{&SomeStructWithInt32FuncPtr{}, uint64(0), uint64(32), "", nil},
+
+		{SomeStructWithInt32WithErrFunc{}, uint64(0), uint64(32), "", nil},
+		{&SomeStructWithInt32WithErrFunc{}, uint64(0), uint64(32), "", nil},
+
+		{SomeStructWithInt32WithErrFuncPtr{}, uint64(0), uint64(32), "", nil},
+		{&SomeStructWithInt32WithErrFuncPtr{}, uint64(0), uint64(32), "", nil},
+
+		{SomeStructWithInt64Func{}, uint64(0), uint64(64), "", nil},
+		{&SomeStructWithInt64Func{}, uint64(0), uint64(64), "", nil},
+
+		{SomeStructWithInt64FuncPtr{}, uint64(0), uint64(64), "", nil},
+		{&SomeStructWithInt64FuncPtr{}, uint64(0), uint64(64), "", nil},
+
+		{SomeStructWithInt64WithErrFunc{}, uint64(0), uint64(64), "", nil},
+		{&SomeStructWithInt64WithErrFunc{}, uint64(0), uint64(64), "", nil},
+
+		{SomeStructWithInt64WithErrFuncPtr{}, uint64(0), uint64(64), "", nil},
+		{&SomeStructWithInt64WithErrFuncPtr{}, uint64(0), uint64(64), "", nil},
+
+		{SomeStructWithUintFunc{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithUintFunc{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithUintFuncPtr{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithUintFuncPtr{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithUintWithErrFunc{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithUintWithErrFunc{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithUintWithErrFuncPtr{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithUintWithErrFuncPtr{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithUint8Func{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithUint8Func{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithUint8FuncPtr{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithUint8FuncPtr{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithUint8WithErrFunc{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithUint8WithErrFunc{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithUint8WithErrFuncPtr{}, uint64(0), uint64(8), "", nil},
+		{&SomeStructWithUint8WithErrFuncPtr{}, uint64(0), uint64(8), "", nil},
+
+		{SomeStructWithUint16Func{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithUint16Func{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithUint16FuncPtr{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithUint16FuncPtr{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithUint16WithErrFunc{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithUint16WithErrFunc{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithUint16WithErrFuncPtr{}, uint64(0), uint64(16), "", nil},
+		{&SomeStructWithUint16WithErrFuncPtr{}, uint64(0), uint64(16), "", nil},
+
+		{SomeStructWithUint32Func{}, uint64(0), uint64(32), "", nil},
+		{&SomeStructWithUint32Func{}, uint64(0), uint64(32), "", nil},
+
+		{SomeStructWithUint32FuncPtr{}, uint64(0), uint64(32), "", nil},
+		{&SomeStructWithUint32FuncPtr{}, uint64(0), uint64(32), "", nil},
+
+		{SomeStructWithUint32WithErrFunc{}, uint64(0), uint64(32), "", nil},
+		{&SomeStructWithUint32WithErrFunc{}, uint64(0), uint64(32), "", nil},
+
+		{SomeStructWithUint32WithErrFuncPtr{}, uint64(0), uint64(32), "", nil},
+		{&SomeStructWithUint32WithErrFuncPtr{}, uint64(0), uint64(32), "", nil},
+
 		{SomeStructWithUint64Func{}, uint64(0), uint64(64), "", nil},
 		{&SomeStructWithUint64Func{}, uint64(0), uint64(64), "", nil},
 

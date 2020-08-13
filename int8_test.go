@@ -77,6 +77,18 @@ func TestInt8(t *testing.T) {
 		// time
 		{time.Unix(10, 10), int8(10), int8(10), "", nil},
 
+		{SomeStructWithIntFunc{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithIntFunc{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithIntFuncPtr{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithIntFuncPtr{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithIntWithErrFunc{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithIntWithErrFunc{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithIntWithErrFuncPtr{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithIntWithErrFuncPtr{}, int8(0), int8(8), "", nil},
+
 		{SomeStructWithInt8Func{}, int8(0), int8(8), "", nil},
 		{&SomeStructWithInt8Func{}, int8(0), int8(8), "", nil},
 
@@ -88,6 +100,102 @@ func TestInt8(t *testing.T) {
 
 		{SomeStructWithInt8WithErrFuncPtr{}, int8(0), int8(8), "", nil},
 		{&SomeStructWithInt8WithErrFuncPtr{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithInt16Func{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithInt16Func{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithInt16FuncPtr{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithInt16FuncPtr{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithInt16WithErrFunc{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithInt16WithErrFunc{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithInt16WithErrFuncPtr{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithInt16WithErrFuncPtr{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithInt32Func{}, int8(0), int8(32), "", nil},
+		{&SomeStructWithInt32Func{}, int8(0), int8(32), "", nil},
+
+		{SomeStructWithInt32FuncPtr{}, int8(0), int8(32), "", nil},
+		{&SomeStructWithInt32FuncPtr{}, int8(0), int8(32), "", nil},
+
+		{SomeStructWithInt32WithErrFunc{}, int8(0), int8(32), "", nil},
+		{&SomeStructWithInt32WithErrFunc{}, int8(0), int8(32), "", nil},
+
+		{SomeStructWithInt32WithErrFuncPtr{}, int8(0), int8(32), "", nil},
+		{&SomeStructWithInt32WithErrFuncPtr{}, int8(0), int8(32), "", nil},
+
+		{SomeStructWithInt64Func{}, int8(0), int8(64), "", nil},
+		{&SomeStructWithInt64Func{}, int8(0), int8(64), "", nil},
+
+		{SomeStructWithInt64FuncPtr{}, int8(0), int8(64), "", nil},
+		{&SomeStructWithInt64FuncPtr{}, int8(0), int8(64), "", nil},
+
+		{SomeStructWithInt64WithErrFunc{}, int8(0), int8(64), "", nil},
+		{&SomeStructWithInt64WithErrFunc{}, int8(0), int8(64), "", nil},
+
+		{SomeStructWithInt64WithErrFuncPtr{}, int8(0), int8(64), "", nil},
+		{&SomeStructWithInt64WithErrFuncPtr{}, int8(0), int8(64), "", nil},
+
+		{SomeStructWithUintFunc{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithUintFunc{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithUintFuncPtr{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithUintFuncPtr{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithUintWithErrFunc{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithUintWithErrFunc{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithUintWithErrFuncPtr{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithUintWithErrFuncPtr{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithUint8Func{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithUint8Func{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithUint8FuncPtr{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithUint8FuncPtr{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithUint8WithErrFunc{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithUint8WithErrFunc{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithUint8WithErrFuncPtr{}, int8(0), int8(8), "", nil},
+		{&SomeStructWithUint8WithErrFuncPtr{}, int8(0), int8(8), "", nil},
+
+		{SomeStructWithUint16Func{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithUint16Func{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithUint16FuncPtr{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithUint16FuncPtr{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithUint16WithErrFunc{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithUint16WithErrFunc{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithUint16WithErrFuncPtr{}, int8(0), int8(16), "", nil},
+		{&SomeStructWithUint16WithErrFuncPtr{}, int8(0), int8(16), "", nil},
+
+		{SomeStructWithUint32Func{}, int8(0), int8(32), "", nil},
+		{&SomeStructWithUint32Func{}, int8(0), int8(32), "", nil},
+
+		{SomeStructWithUint32FuncPtr{}, int8(0), int8(32), "", nil},
+		{&SomeStructWithUint32FuncPtr{}, int8(0), int8(32), "", nil},
+
+		{SomeStructWithUint32WithErrFunc{}, int8(0), int8(32), "", nil},
+		{&SomeStructWithUint32WithErrFunc{}, int8(0), int8(32), "", nil},
+
+		{SomeStructWithUint32WithErrFuncPtr{}, int8(0), int8(32), "", nil},
+		{&SomeStructWithUint32WithErrFuncPtr{}, int8(0), int8(32), "", nil},
+
+		{SomeStructWithUint64Func{}, int8(0), int8(64), "", nil},
+		{&SomeStructWithUint64Func{}, int8(0), int8(64), "", nil},
+
+		{SomeStructWithUint64FuncPtr{}, int8(0), int8(64), "", nil},
+		{&SomeStructWithUint64FuncPtr{}, int8(0), int8(64), "", nil},
+
+		{SomeStructWithUint64WithErrFunc{}, int8(0), int8(64), "", nil},
+		{&SomeStructWithUint64WithErrFunc{}, int8(0), int8(64), "", nil},
+
+		{SomeStructWithUint64WithErrFuncPtr{}, int8(0), int8(64), "", nil},
+		{&SomeStructWithUint64WithErrFuncPtr{}, int8(0), int8(64), "", nil},
 	}
 
 	for i, test := range tests {
