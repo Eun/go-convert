@@ -91,7 +91,8 @@ func TestMap(t *testing.T) {
 		{map[string]User{"Foo": {"Joe"}}, map[string]string{}, map[string]string{}, "unable to convert map[string]convert_test.User to map[string]string: unable to convert convert_test.User to string: convert_test.User has no String() function", nil},
 		{UserAndCompany{"Joe", Company{"Wood Inc"}}, map[string]string{}, map[string]string{}, "unable to convert convert_test.UserAndCompany to map[string]string: unable to convert convert_test.Company to string: convert_test.Company has no String() function", nil},
 
-		{TimeStruct{}, map[string]string{}, map[string]string{"CreatedOn": "0001-01-01 00:00:00 +0000 UTC"}, "", nil},
+		{TimeStruct{}, map[string]string{}, map[string]string{}, "", nil},
+		{TimeStruct{}, map[string]string{"CreatedOn":""}, map[string]string{"CreatedOn":""}, "", nil},
 		{TimeStruct{CreatedOn: &beginningOfTime}, map[string]string{}, map[string]string{"CreatedOn": "1970-01-01 00:00:00 +0000 UTC"}, "", nil},
 	}
 

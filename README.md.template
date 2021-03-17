@@ -1,5 +1,8 @@
 <$
-import "io/ioutil"
+import (
+    "fmt"
+    "io/ioutil"
+)
 func printFile(f string) {
 	buf, err := ioutil.ReadFile(f)
 	if err != nil {
