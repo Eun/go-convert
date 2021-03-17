@@ -22,13 +22,13 @@ func (user *User) ConvertRecipes() []convert.Recipe {
 	return convert.MustMakeRecipes(
 		// convert string into Roles
 		func(_ convert.Converter, in string, out *Roles) error {
-			(*out).IsAdmin = false
-			(*out).IsDeveloper = false
+			out.IsAdmin = false
+			out.IsDeveloper = false
 			if strings.Contains(in, "A") {
-				(*out).IsAdmin = true
+				out.IsAdmin = true
 			}
 			if strings.Contains(in, "D") {
-				(*out).IsDeveloper = true
+				out.IsDeveloper = true
 			}
 			return nil
 		},
