@@ -3,7 +3,7 @@ package convert_test
 import (
 	"testing"
 
-	convert "github.com/Eun/go-convert"
+	"github.com/Eun/go-convert"
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 
@@ -94,6 +94,9 @@ func TestStruct(t *testing.T) {
 		{UserAndCompany{"Joe", Company{"Wood Inc"}}, User{}, User{"Joe"}, "", &convert.Options{SkipUnknownFields: true}},
 
 		{UserAndCompany{"Joe", Company{"Wood Inc"}}, AnotherUserAndCompanyString{}, AnotherUserAndCompanyString{}, "unable to convert convert_test.UserAndCompany to convert_test.AnotherUserAndCompanyString: unable to convert convert_test.Company to string: convert_test.Company has no String() function", nil},
+
+		// struct with nil field should stay nil
+		{NilField{}, NilField{}, NilField{}, "", nil},
 	}
 
 	for i, test := range tests {
