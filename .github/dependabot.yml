@@ -6,6 +6,12 @@ updates:
     schedule:
       interval: daily
       time: "04:00"
+    commit_message:
+      prefix: "chore"
+    labels:
+      - "dependencies"
+      - "go"
+      - "chore"
 
   - package-ecosystem: "github-actions"
     open-pull-requests-limit: 10
@@ -13,4 +19,10 @@ updates:
     schedule:
       interval: "daily"
       time: "04:00"
+    commit_message:
+      prefix: "chore"
+    labels:
+      - "dependencies"
+      - "github_actions"
+      - "chore"
 
