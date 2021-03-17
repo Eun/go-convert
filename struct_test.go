@@ -1,9 +1,9 @@
 package convert_test
 
 import (
-	"github.com/Eun/go-convert"
 	"testing"
 
+	"github.com/Eun/go-convert"
 	"github.com/Eun/go-convert/internal/testhelpers"
 )
 

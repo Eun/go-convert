@@ -2,7 +2,6 @@ package convert_test
 
 import (
 	"testing"
-
 	"time"
 
 	"github.com/Eun/go-convert/internal/testhelpers"
@@ -92,7 +91,7 @@ func TestMap(t *testing.T) {
 		{UserAndCompany{"Joe", Company{"Wood Inc"}}, map[string]string{}, map[string]string{}, "unable to convert convert_test.UserAndCompany to map[string]string: unable to convert convert_test.Company to string: convert_test.Company has no String() function", nil},
 
 		{TimeStruct{}, map[string]string{}, map[string]string{}, "", nil},
-		{TimeStruct{}, map[string]string{"CreatedOn":""}, map[string]string{"CreatedOn":""}, "", nil},
+		{TimeStruct{}, map[string]string{"CreatedOn": ""}, map[string]string{"CreatedOn": ""}, "", nil},
 		{TimeStruct{CreatedOn: &beginningOfTime}, map[string]string{}, map[string]string{"CreatedOn": "1970-01-01 00:00:00 +0000 UTC"}, "", nil},
 	}
 

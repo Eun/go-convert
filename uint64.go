@@ -78,7 +78,7 @@ func (stdRecipes) stringToUint64(c Converter, in string, out *uint64) error {
 	if err != nil {
 		return err
 	}
-	*out = uint64(i)
+	*out = i
 	return nil
 }
 func (stdRecipes) timeToUint64(c Converter, in time.Time, out *uint64) error {

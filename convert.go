@@ -6,6 +6,7 @@ import (
 	"reflect"
 )
 
+//nolint:golint // silence consider calling this Recipes
 // ConvertRecipes can be used to add recipes to a type in a convenient way
 type ConvertRecipes interface {
 	ConvertRecipes() []Recipe
@@ -269,6 +270,7 @@ func MustConvert(src, dst interface{}, options ...Options) {
 	defaultConverterInstance.MustConvert(src, dst, options...)
 }
 
+//nolint:golint // silence consider calling this ReflectValue
 // ConvertReflectValue converts the specified reflect value to the specified type
 // The behavior can be influenced by using the options
 func ConvertReflectValue(src, dstTyp reflect.Value, options ...Options) error {

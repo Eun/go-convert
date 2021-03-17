@@ -174,7 +174,7 @@ func genericIntConvert(in reflect.Value) (bool, int64, error) {
 
 	// check for struct.Int64()
 	if i, ok := in.Interface().(toInt64); ok {
-		return true, int64(i.Int64()), nil
+		return true, i.Int64(), nil
 	}
 	if i, ok := in.Interface().(toInt64WithErr); ok {
 		v, err := i.Int64()
