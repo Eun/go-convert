@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: daily
       time: "04:00"
-    commit_message:
+    commit-message:
       prefix: "chore"
     labels:
       - "dependencies"
@@ -19,7 +19,7 @@ updates:
     schedule:
       interval: "daily"
       time: "04:00"
-    commit_message:
+    commit-message:
       prefix: "chore"
     labels:
       - "dependencies"
