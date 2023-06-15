@@ -12,7 +12,7 @@ jobs:
         continue-on-error: false
         uses: golangci/golangci-lint-action@v3.1.0
         with:
-          version: latest
+          version: v1.38.0
           # Optional: show only new issues if it's a pull request. The default value is `false`.
           # only-new-issues: true
 
