@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Get go.mod details
         uses: Eun/go-mod-details@v1.0.6
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         uses: actions/setup-go@v3
       # We cannot use nancy-github-action because it is outdated, so it's better to use the latest
@@ -53,7 +53,7 @@ jobs:
           go-version: ${{ matrix.go-version }}
       -
         name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Test
         run: go test -v -count=1 -coverprofile="coverage-${{ matrix.platform }}-${{ matrix.go-version }}.txt" -covermode=atomic ./...
