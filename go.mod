@@ -1,6 +1,6 @@
 module github.com/Eun/go-convert
 
-go 1.12
+go 1.14
 
 require (
 	github.com/araddon/dateparse v0.0.0-20190622164848-0fb0a474d195
