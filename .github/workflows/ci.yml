@@ -8,6 +8,15 @@ jobs:
       -
         uses: actions/checkout@v2
       -
+        name: Get go.mod details
+        uses: Eun/go-mod-details@v1.0.6
+        id: go-mod-details
+      -
+        name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ steps.go-mod-details.outputs.go_version }}
+      -
         name: lint
         continue-on-error: false
         uses: golangci/golangci-lint-action@v3.1.0
