@@ -4,5 +4,5 @@ go 1.14
 
 require (
 	github.com/araddon/dateparse v0.0.0-20190622164848-0fb0a474d195
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.9.0
 )
